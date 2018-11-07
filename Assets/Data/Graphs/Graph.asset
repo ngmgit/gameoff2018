@@ -16,16 +16,16 @@ MonoBehaviour:
     drawNode: {fileID: 11400000, guid: 3de6cb72c5d54a842957b3d8754294e2, type: 2}
     windowRect:
       serializedVersion: 2
-      x: 80
-      y: 176
+      x: 108
+      y: 161
       width: 200
-      height: 100
+      height: 330
     windowTitle: State
     enterNode: 0
     targetNode: 0
     isDuplicate: 0
     comment: 
-    isAssigned: 0
+    isAssigned: 1
     showDescription: 0
     isOnCurrent: 0
     collapse: 0
@@ -33,9 +33,61 @@ MonoBehaviour:
     showEnterExit: 0
     previousCollapse: 0
     stateRef:
-      currentState: {fileID: 0}
-      previousState: {fileID: 0}
+      currentState: {fileID: 11400000, guid: a60871765b920f7449987b654a90276c, type: 2}
+      previousState: {fileID: 11400000, guid: a60871765b920f7449987b654a90276c, type: 2}
     transRef:
       previousCondition: {fileID: 0}
       transitionId: 0
-  idCount: 1
+  - id: 1
+    drawNode: {fileID: 11400000, guid: 3de6cb72c5d54a842957b3d8754294e2, type: 2}
+    windowRect:
+      serializedVersion: 2
+      x: 400
+      y: 176
+      width: 200
+      height: 290
+    windowTitle: State
+    enterNode: 0
+    targetNode: 0
+    isDuplicate: 0
+    comment: 
+    isAssigned: 1
+    showDescription: 0
+    isOnCurrent: 0
+    collapse: 0
+    showActions: 1
+    showEnterExit: 0
+    previousCollapse: 0
+    stateRef:
+      currentState: {fileID: 11400000, guid: f32236305873b3a468be4fa1d8037cd8, type: 2}
+      previousState: {fileID: 11400000, guid: f32236305873b3a468be4fa1d8037cd8, type: 2}
+    transRef:
+      previousCondition: {fileID: 0}
+      transitionId: 0
+  - id: 2
+    drawNode: {fileID: 11400000, guid: 3de6cb72c5d54a842957b3d8754294e2, type: 2}
+    windowRect:
+      serializedVersion: 2
+      x: 828
+      y: 199
+      width: 200
+      height: 290
+    windowTitle: State
+    enterNode: 0
+    targetNode: 0
+    isDuplicate: 0
+    comment: 
+    isAssigned: 1
+    showDescription: 0
+    isOnCurrent: 0
+    collapse: 0
+    showActions: 1
+    showEnterExit: 0
+    previousCollapse: 0
+    stateRef:
+      currentState: {fileID: 11400000, guid: e199d92c582b9a143ab53f23b27b6c4f, type: 2}
+      previousState: {fileID: 11400000, guid: e199d92c582b9a143ab53f23b27b6c4f, type: 2}
+    transRef:
+      previousCondition: {fileID: 0}
+      transitionId: 0
+  idCount: 4

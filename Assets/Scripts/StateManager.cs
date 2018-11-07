@@ -13,27 +13,38 @@ namespace SA
         {
             public float horizontal;
             public float vertical;
-            public float moveAmount;
             public Vector3 moveDirection;
-            public Vector3 lookDirection;
-            public Vector3 aimPosition;
         }
 
-        public bool isAiming;
-        public bool isInteracting;
-        public bool isShooting;
+        public bool isJumpHold;
+        public bool isJumpDown;
+        public bool isJumpUp;
+        public bool isAttacking;
+        public bool isVanish;
 
         public State currentState;
 
+        // Ground Check State
+        public bool isGrounded = false;
+        public string platformTag = "Platform";
+        public float colliderHorizontalOffset = 0.05f;
+        public float colliderVerticalOffset = 0.05f;
+
+        [HideInInspector]
+        public CircleCollider2D circleGroundCollider;
+        [HideInInspector]
+        public float circleRadiusOffset;
+        [HideInInspector]
+        public float downRaySize;
+
         [HideInInspector]
         public Animator anim;
-
         [HideInInspector]
         public float delta;
         [HideInInspector]
         public Transform mTransform;
         [HideInInspector]
-        public Rigidbody rigid;
+        public Rigidbody2D rigid;
         [HideInInspector]
         public LayerMask ignoreLayers;
         [HideInInspector]
@@ -45,19 +56,13 @@ namespace SA
             Cursor.visible = false;
 
             mTransform = this.transform;
-            rigid = GetComponent<Rigidbody>();
-            rigid.drag = 4;
-            rigid.angularDrag = 999;
-            rigid.constraints = RigidbodyConstraints.FreezeRotation;
-
-            int controllerLayer = LayerMask.NameToLayer("Controller");
-            int ignoreRayCastLayer = LayerMask.NameToLayer("Ignore Raycast");
-
-            ignoreLayers = ~(1 << controllerLayer | 1 << ignoreRayCastLayer);
+            rigid = GetComponent<Rigidbody2D>();
 
             anim = GetComponentInChildren<Animator>();
 
-            initActionsBatch.Execute(this);
+            circleGroundCollider = GetComponent<CircleCollider2D>();
+		    circleRadiusOffset = circleGroundCollider.radius - colliderHorizontalOffset;
+		    downRaySize = circleGroundCollider.radius + colliderVerticalOffset;
         }
 
         private void FixedUpdate()
