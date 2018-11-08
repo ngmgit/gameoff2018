@@ -16,7 +16,7 @@ MonoBehaviour:
   jump: {fileID: 11400000, guid: 3712613e442c9af48a746f63821062c2, type: 2}
   jumpKeyDown: {fileID: 11400000, guid: 980d54b8b0826b04ab6fe5eeff93f060, type: 2}
   jumpKeyUp: {fileID: 11400000, guid: e5ba95597147f2040ad649dd803cb269, type: 2}
-  dash: {fileID: 0}
+  dash: {fileID: 11400000, guid: 1022da535bedc4e49ad995d0e14212e0, type: 2}
   attack: {fileID: 0}
   vanish: {fileID: 0}
   moveDirection: {x: 1, y: 0, z: 0}

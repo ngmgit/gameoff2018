@@ -11,7 +11,8 @@ namespace SA
 
         public override void Execute(StateManager states)
         {
-            states.rigid.velocity = new Vector2(states.movementValues.horizontal * speed, states.rigid.velocity.y);
+            states.rigid.velocity = new Vector2(states.movementValues.horizontal * speed * states.movementValues.dashSpeedMultiplier,
+                states.rigid.velocity.y);
             states.mTransform.GetChild(0).localScale = new Vector2(states.movementValues.moveDirection.x, 1);
         }
     }

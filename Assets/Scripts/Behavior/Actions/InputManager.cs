@@ -38,6 +38,8 @@ namespace SA
                 playerState.value.isJumpHold = jump.value;
                 playerState.value.isJumpDown = jumpKeyDown.value;
                 playerState.value.isJumpUp = jumpKeyUp.value;
+
+                playerState.value.isDash = dash.isPressed;
                 //playerState.value.isAttacking = attack.isPressed;
                 //playerState.value.isVanish = vanish.isPressed;
             }
