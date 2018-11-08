@@ -15,7 +15,9 @@ namespace SA
         public SO.BoolVariable jumpKeyDown;
         public SO.BoolVariable jumpKeyUp;
         public InputButton dash;
-        public InputButton attack;
+        public SO.BoolVariable attack;
+        public SO.BoolVariable attackDown;
+        public SO.BoolVariable attackUp;
         public InputButton vanish;
 
         public Vector3 moveDirection;
@@ -40,7 +42,11 @@ namespace SA
                 playerState.value.isJumpUp = jumpKeyUp.value;
 
                 playerState.value.isDash = dash.isPressed;
-                //playerState.value.isAttacking = attack.isPressed;
+
+                playerState.value.isAttacking = attack.value;
+                playerState.value.isAttackingDown = attackDown.value;
+                playerState.value.isAttackingUp = attackUp.value;
+
                 //playerState.value.isVanish = vanish.isPressed;
             }
         }

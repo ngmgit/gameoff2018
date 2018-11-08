@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 711dbd0dcc0707448ad710a82f0aa6b6, type: 3}
-  m_Name: Graph
+  m_Name: PlayerMovement
   m_EditorClassIdentifier: 
   windows:
   - id: 0
@@ -19,7 +19,7 @@ MonoBehaviour:
       x: 108
       y: 161
       width: 200
-      height: 490
+      height: 530
     windowTitle: State
     enterNode: 0
     targetNode: 0
@@ -42,10 +42,10 @@ MonoBehaviour:
     drawNode: {fileID: 11400000, guid: 3de6cb72c5d54a842957b3d8754294e2, type: 2}
     windowRect:
       serializedVersion: 2
-      x: 625
-      y: 414
+      x: 621
+      y: 416
       width: 200
-      height: 290
+      height: 310
     windowTitle: State
     enterNode: 0
     targetNode: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
     drawNode: {fileID: 11400000, guid: 3de6cb72c5d54a842957b3d8754294e2, type: 2}
     windowRect:
       serializedVersion: 2
-      x: 624
+      x: 622
       y: 100
       width: 200
       height: 290
@@ -144,4 +144,57 @@ MonoBehaviour:
       previousCondition: {fileID: 11400000, guid: 2fce9f2fe81372342b8e510c8aac3dc4,
         type: 2}
       transitionId: 3
-  idCount: 7
+  - id: 7
+    drawNode: {fileID: 11400000, guid: 02d1192eec6276044a75147866515bb8, type: 2}
+    windowRect:
+      serializedVersion: 2
+      x: 848
+      y: 618
+      width: 200
+      height: 100
+    windowTitle: Condition
+    enterNode: 1
+    targetNode: 8
+    isDuplicate: 0
+    comment: 
+    isAssigned: 1
+    showDescription: 0
+    isOnCurrent: 0
+    collapse: 0
+    showActions: 1
+    showEnterExit: 0
+    previousCollapse: 0
+    stateRef:
+      currentState: {fileID: 0}
+      previousState: {fileID: 0}
+    transRef:
+      previousCondition: {fileID: 11400000, guid: 1e9c8b76e06af594391e6986be071e18,
+        type: 2}
+      transitionId: 0
+  - id: 8
+    drawNode: {fileID: 11400000, guid: 765a518b20d9ed8449bf9d452b8f6306, type: 2}
+    windowRect:
+      serializedVersion: 2
+      x: 1076
+      y: 626
+      width: 100
+      height: 80
+    windowTitle: Portal
+    enterNode: 0
+    targetNode: 0
+    isDuplicate: 0
+    comment: 
+    isAssigned: 1
+    showDescription: 0
+    isOnCurrent: 0
+    collapse: 0
+    showActions: 1
+    showEnterExit: 0
+    previousCollapse: 0
+    stateRef:
+      currentState: {fileID: 11400000, guid: a60871765b920f7449987b654a90276c, type: 2}
+      previousState: {fileID: 11400000, guid: a60871765b920f7449987b654a90276c, type: 2}
+    transRef:
+      previousCondition: {fileID: 0}
+      transitionId: 0
+  idCount: 9

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a91b56167c004547b00af70cf71e47b, type: 3}
   m_Name: AttackUp
   m_EditorClassIdentifier: 
-  targetInput: Fire
+  targetInput: Fire1
   isPressed: 0
   keyState: 2
   targetBoolVariable: {fileID: 11400000, guid: 40a52c30479ffb1429331a7ad98f040f, type: 2}

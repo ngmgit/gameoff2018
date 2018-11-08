@@ -17,7 +17,9 @@ MonoBehaviour:
   jumpKeyDown: {fileID: 11400000, guid: 980d54b8b0826b04ab6fe5eeff93f060, type: 2}
   jumpKeyUp: {fileID: 11400000, guid: e5ba95597147f2040ad649dd803cb269, type: 2}
   dash: {fileID: 11400000, guid: 1022da535bedc4e49ad995d0e14212e0, type: 2}
-  attack: {fileID: 0}
+  attack: {fileID: 11400000, guid: 8c76a498f21cfc04fbb1759e1e417dce, type: 2}
+  attackDown: {fileID: 11400000, guid: e45af6c845cc5de47bcc2bef864c5f29, type: 2}
+  attackUp: {fileID: 11400000, guid: 40a52c30479ffb1429331a7ad98f040f, type: 2}
   vanish: {fileID: 0}
   moveDirection: {x: 1, y: 0, z: 0}
   playerState: {fileID: 11400000, guid: ca20f6e123898d74694872c52a7152a1, type: 2}

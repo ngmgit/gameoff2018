@@ -11,9 +11,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09f12a9b8fb5e44eb81fa499afbecc4, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  onFixed: []
-  onUpdate: []
-  onEnter: []
-  onExit: []
-  idCount: 0
-  transitions: []
+  onFixed:
+  - {fileID: 11400000, guid: 6031bb6cce64648438116966337fc89b, type: 2}
+  onUpdate:
+  - {fileID: 11400000, guid: a68d35f499f4d94458a62d6575589f89, type: 2}
+  - {fileID: 11400000, guid: 8cc79b64ce2ed58468c446709d8d841e, type: 2}
+  onEnter:
+  - {fileID: 11400000, guid: a68d35f499f4d94458a62d6575589f89, type: 2}
+  onExit:
+  - {fileID: 11400000, guid: 0c82f5a6ee63f3e42b2c940d5a662d41, type: 2}
+  idCount: 1
+  transitions:
+  - id: 0
+    condition: {fileID: 11400000, guid: 1e9c8b76e06af594391e6986be071e18, type: 2}
+    targetState: {fileID: 11400000, guid: a60871765b920f7449987b654a90276c, type: 2}
+    disable: 0

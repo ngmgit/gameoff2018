@@ -14,6 +14,7 @@ namespace SA
             public float horizontal;
             public float vertical;
             public Vector3 moveDirection;
+            [HideInInspector]
             public float dashSpeedMultiplier = 1;
         }
 
@@ -21,8 +22,12 @@ namespace SA
         public bool isJumpDown;
         public bool isJumpUp;
         public bool isAttacking;
+        public bool isAttackingDown;
+        public bool isAttackingUp;
         public bool isVanish;
         public bool isDash;
+
+        public int AttackPrimaryType;
 
         public State currentState;
 
