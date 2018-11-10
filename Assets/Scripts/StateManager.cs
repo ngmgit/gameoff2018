@@ -18,6 +18,18 @@ namespace SA
             public float dashSpeedMultiplier = 1;
         }
 
+        public struct inputs
+        {
+            public bool isJumpHold;
+            public bool isJumpDown;
+            public bool isJumpUp;
+            public bool isAttacking;
+            public bool isAttackingDown;
+            public bool isAttackingUp;
+            public bool isVanish;
+            public bool isDash;
+        }
+
         public bool isJumpHold;
         public bool isJumpDown;
         public bool isJumpUp;
