@@ -178,6 +178,7 @@ MonoBehaviour:
   isVanish: 0
   isDash: 0
   AttackPrimaryType: 0
+  canSkipAttackAnim: 0
   currentState: {fileID: 11400000, guid: a60871765b920f7449987b654a90276c, type: 2}
   isGrounded: 0
   platformTag: Platform

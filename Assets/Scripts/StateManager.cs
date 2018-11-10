@@ -40,6 +40,7 @@ namespace SA
         public bool isDash;
 
         public int AttackPrimaryType;
+        public bool canSkipAttackAnim = false;
 
         public State currentState;
 

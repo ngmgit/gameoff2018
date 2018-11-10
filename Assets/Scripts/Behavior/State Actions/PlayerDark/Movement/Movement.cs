@@ -13,7 +13,11 @@ namespace SA
         {
             states.rigid.velocity = new Vector2(states.movementValues.horizontal * speed * states.movementValues.dashSpeedMultiplier,
                 states.rigid.velocity.y);
-            states.mTransform.GetChild(0).localScale = new Vector2(states.movementValues.moveDirection.x, 1);
+
+            if (states.movementValues.horizontal > 0)
+                states.mTransform.localScale = new Vector3(1, 1, 1);
+            else if (states.movementValues.horizontal < 0)
+                states.mTransform.localScale = new Vector3(-1, 1, 1);
         }
     }
 }
