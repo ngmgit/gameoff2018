@@ -8,8 +8,8 @@ namespace SA
 	public class Attack : StateActions {
         public float midHoldTime = 0.5f;
         public float longHoldTime = 1.5f;
-        public float delayCounter = 0;
 
+        private float delayCounter = 0;
         private bool inAttackMode = false;
 
 		public override void Execute(StateManager states)
@@ -32,14 +32,12 @@ namespace SA
                     if (delayCounter > midHoldTime && states.movementValues.vertical < -0.1f)
                     {
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
-                        inAttackMode = false;
-                        delayCounter = 0;
+                        SetDefaults();
                     }
                     else if (delayCounter > midHoldTime && (states.movementValues.vertical > -0.1f && states.movementValues.vertical < 0.1f))
                     {
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
-                        inAttackMode = false;
-                        delayCounter = 0;
+                        SetDefaults();
                     }
                 }
             }
@@ -56,9 +54,14 @@ namespace SA
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
                 }
 
-                delayCounter = 0;
-                inAttackMode = false;
+                SetDefaults();
             }
 		}
+
+        private void SetDefaults()
+        {
+            delayCounter = 0;
+            inAttackMode = false;
+        }
 	}
 }

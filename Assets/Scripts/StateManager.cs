@@ -14,6 +14,7 @@ namespace SA
             public float horizontal;
             public float vertical;
             public Vector3 moveDirection;
+            public float speed = 8;
             [HideInInspector]
             public float dashSpeedMultiplier = 1;
         }
@@ -39,9 +40,12 @@ namespace SA
         [HideInInspector]
         public bool canSkipAttackAnim = false;
 
+        [Header("State Config")]
+        public StateActions initActionsBatch;
         public State currentState;
 
         // Ground Check State
+        [Header("Ground Collider Details")]
         public bool isGrounded = false;
         public string platformTag = "Platform";
         public float colliderHorizontalOffset = 0.05f;
@@ -65,8 +69,6 @@ namespace SA
         [HideInInspector]
         public LayerMask ignoreLayers;
         [HideInInspector]
-
-        public StateActions initActionsBatch;
 
         private void Start()
         {

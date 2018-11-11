@@ -8,9 +8,14 @@ namespace SA
     [CreateAssetMenu(menuName ="Inputs/Input Manager")]
     public class InputManager : Action
     {
+        [Header("Player State")]
+        public StatesVariable playerState;
+
+        [Header("Axis")]
         public InputAxis horizontal;
         public InputAxis vertical;
 
+        [Header("Inputs")]
         public SO.BoolVariable jump;
         public SO.BoolVariable jumpKeyDown;
         public SO.BoolVariable jumpKeyUp;
@@ -20,9 +25,8 @@ namespace SA
         public SO.BoolVariable attackUp;
         public InputButton vanish;
 
+        [Header("Others")]
         public Vector3 moveDirection;
-
-        public StatesVariable playerState;
 
         public override void Execute()
         {

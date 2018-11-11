@@ -14,7 +14,7 @@ namespace SA
 			states.anim.SetBool("dash", states.inputs.isDash);
 
 			if (states.inputs.isAttackingDown)
-                states.anim.SetBool("attackPrimary", states.inputs.isAttackingDown);
+				states.anim.SetBool("attackPrimary", states.inputs.isAttackingDown);
 		}
 	}
 }
