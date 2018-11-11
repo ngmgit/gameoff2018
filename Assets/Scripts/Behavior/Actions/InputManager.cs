@@ -34,18 +34,18 @@ namespace SA
             if (playerState != null)
             {
                 playerState.value.movementValues.horizontal = horizontal.value;
-                //playerState.value.movementValues.vertical = vertical.value;
+                playerState.value.movementValues.vertical = vertical.value;
                 playerState.value.movementValues.moveDirection = moveDirection;
 
-                playerState.value.isJumpHold = jump.value;
-                playerState.value.isJumpDown = jumpKeyDown.value;
-                playerState.value.isJumpUp = jumpKeyUp.value;
+                playerState.value.inputs.isJumpHold = jump.value;
+                playerState.value.inputs.isJumpDown = jumpKeyDown.value;
+                playerState.value.inputs.isJumpUp = jumpKeyUp.value;
 
-                playerState.value.isDash = dash.isPressed;
+                playerState.value.inputs.isDash = dash.isPressed;
 
-                playerState.value.isAttacking = attack.value;
-                playerState.value.isAttackingDown = attackDown.value;
-                playerState.value.isAttackingUp = attackUp.value;
+                playerState.value.inputs.isAttacking = attack.value;
+                playerState.value.inputs.isAttackingDown = attackDown.value;
+                playerState.value.inputs.isAttackingUp = attackUp.value;
 
                 //playerState.value.isVanish = vanish.isPressed;
             }

@@ -11,6 +11,7 @@ namespace SA
         {
             states.AttackPrimaryType = -1;
 			states.anim.SetInteger("AttackPrimaryType", states.AttackPrimaryType);
+            states.anim.SetBool("attackPrimary", false);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SA
 	{
 		public override bool CheckCondition(StateManager state)
 		{
-			if (state.isGrounded && state.isAttackingDown)
+			if (state.isGrounded && state.inputs.isAttackingDown)
 			{
 				state.rigid.velocity = Vector2.zero;
 				state.anim.SetFloat("moving", 0);

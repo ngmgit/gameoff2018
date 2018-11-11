@@ -9,7 +9,7 @@ namespace SA
 	{
 		public override bool CheckCondition(StateManager state)
 		{
-			if (state.isVanish)
+			if (state.inputs.isVanish)
 				return true;
 
 			return false;

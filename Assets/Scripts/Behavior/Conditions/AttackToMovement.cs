@@ -7,11 +7,9 @@ namespace SA
 	[CreateAssetMenu(menuName="State Conditions/AttackToMovement")]
 	public class AttackToMovement : Condition
 	{
-		private bool animEnded = false;
-
 		public override bool CheckCondition(StateManager state)
 		{
-			if (Mathf.Abs(state.movementValues.horizontal) > 0f || state.isDash || state.isJumpDown)
+			if (Mathf.Abs(state.movementValues.horizontal) > 0f || state.inputs.isDash || state.inputs.isJumpDown)
 			{
 				if (state.anim.GetCurrentAnimatorStateInfo(0).IsTag("AttackPrimary"))
 				{

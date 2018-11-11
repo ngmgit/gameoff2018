@@ -16,7 +16,7 @@ namespace SA
 
         public override void Execute(StateManager states)
         {
-            if (states.isJumpDown && states.isGrounded)
+            if (states.inputs.isJumpDown && states.isGrounded)
 			{
 				states.rigid.velocity = Vector2.zero;
 				isJumping = true;
@@ -24,7 +24,7 @@ namespace SA
 				states.rigid.AddForce(Vector2.up * jumpForce * initJumpMultiplier, ForceMode2D.Impulse);
 			}
 
-			if (states.isJumpHold && isJumping)
+			if (states.inputs.isJumpHold && isJumping)
 			{
 				if (jumpTimeCounter > 0)
 				{
@@ -35,7 +35,7 @@ namespace SA
 					isJumping = false;
 			}
 
-			if (states.isJumpUp)
+			if (states.inputs.isJumpUp)
 			{
 				isJumping = false;
 			}

@@ -11,7 +11,10 @@ namespace SA
         {
 			states.anim.SetBool("isGrounded", states.isGrounded);
 			states.anim.SetFloat("moving", Mathf.Abs(states.movementValues.horizontal));
-			states.anim.SetBool("dash", states.isDash);
+			states.anim.SetBool("dash", states.inputs.isDash);
+
+			if (states.inputs.isAttackingDown)
+                states.anim.SetBool("attackPrimary", states.inputs.isAttackingDown);
 		}
 	}
 }

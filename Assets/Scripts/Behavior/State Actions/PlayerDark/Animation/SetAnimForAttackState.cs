@@ -9,8 +9,8 @@ namespace SA
     {
         public override void Execute(StateManager states)
         {
-            if (states.isAttackingUp)
-			    states.anim.SetTrigger("attackPrimary");
+            if (states.inputs.isAttackingDown)
+                states.anim.SetBool("attackPrimary", states.inputs.isAttackingDown);
 
 			states.anim.SetInteger("AttackPrimaryType", states.AttackPrimaryType);
         }

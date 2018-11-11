@@ -8,9 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 639b2a9718d2bd142ad974130ad523b0, type: 3}
-  m_Name: Attack
+  m_Script: {fileID: 11500000, guid: 710e437652370424ba48a25ec6c3c25c, type: 3}
+  m_Name: Vertical
   m_EditorClassIdentifier: 
-  midHoldTime: 0.3
-  longHoldTime: 0.5
-  delayCounter: 1.1231613
+  targetString: Vertical
+  value: 0
