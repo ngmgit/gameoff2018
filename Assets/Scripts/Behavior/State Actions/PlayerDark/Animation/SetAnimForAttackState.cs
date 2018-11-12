@@ -13,6 +13,7 @@ namespace SA
                 states.anim.SetBool("attackPrimary", states.inputs.isAttackingDown);
 
 			states.anim.SetInteger("AttackPrimaryType", states.AttackPrimaryType);
+            states.anim.SetBool("isGrounded", states.isGrounded);
         }
     }
 }

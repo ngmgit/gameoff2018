@@ -4,9 +4,11 @@ using UnityEngine;
 
 using SA;
 
+
 public class AttackEvents : MonoBehaviour
 {
 	public StatesVariable states;
+	public AudioClip SlamGround;
 
 	public void SetAttackAnimCancelFlag(int i)
 	{
@@ -19,9 +21,15 @@ public class AttackEvents : MonoBehaviour
 		}
 	}
 
-	private void PlayAttack()
+	private void PlaySound()
 	{
 		states.value.currentAudio.Stop();
 		states.value.currentAudio.Play();
+	}
+
+	private void SetGroundSlamChargeSound()
+	{
+		states.value.currentAudio.clip = SlamGround;
+		PlaySound();
 	}
 }

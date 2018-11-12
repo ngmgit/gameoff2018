@@ -20,45 +20,45 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 52d75798d829f0541ad647769b5971ca, type: 3}
-    - time: 0.06666667
+    - time: 0.05882353
       value: {fileID: 21300000, guid: 35a38245b27f4db439c1c72ded799345, type: 3}
-    - time: 0.13333334
+    - time: 0.11764706
       value: {fileID: 21300000, guid: 566e64ce8689d1943a15a3fd4fe962f4, type: 3}
-    - time: 0.2
+    - time: 0.1764706
       value: {fileID: 21300000, guid: 0dd90f0f4f165a547b3141b92319ed05, type: 3}
-    - time: 0.26666668
+    - time: 0.23529412
       value: {fileID: 21300000, guid: eb3238100c79f9c498f7e05c1818e15b, type: 3}
-    - time: 0.33333334
+    - time: 0.29411766
       value: {fileID: 21300000, guid: 9c55d1b7eab99704e852475e4d62be39, type: 3}
-    - time: 0.4
+    - time: 0.3529412
       value: {fileID: 21300000, guid: 5773774a97706df4498bc359738f6484, type: 3}
-    - time: 0.46666667
+    - time: 0.4117647
       value: {fileID: 21300000, guid: 9b72ae56feadf5541aeae163ce917cf7, type: 3}
-    - time: 0.53333336
+    - time: 0.47058824
       value: {fileID: 21300000, guid: 7e28dcc706f080d408e1d89e4dfd9314, type: 3}
-    - time: 0.6
+    - time: 0.5294118
       value: {fileID: 21300000, guid: 3d982db644c89c848966d55896ca2362, type: 3}
-    - time: 0.6666667
+    - time: 0.5882353
       value: {fileID: 21300000, guid: 3ca93aaffb3cd26458bb11aa894f48ae, type: 3}
-    - time: 0.73333335
+    - time: 0.64705884
       value: {fileID: 21300000, guid: c890a01cc5bb3874cbed831701a7c92d, type: 3}
-    - time: 0.8
+    - time: 0.7058824
       value: {fileID: 21300000, guid: fd2a07b9594c0cc41bd2099f24b15f7f, type: 3}
-    - time: 0.8666667
+    - time: 0.7647059
       value: {fileID: 21300000, guid: b3aa26515a849cd42818aa08ae29ad86, type: 3}
-    - time: 0.93333334
+    - time: 0.8235294
       value: {fileID: 21300000, guid: 0eb313d04fe7d314d9654239b7a4dc79, type: 3}
-    - time: 1
+    - time: 0.88235295
       value: {fileID: 21300000, guid: a6626529ba6e8724dafd1582152d0d56, type: 3}
-    - time: 1.0666667
+    - time: 0.9411765
       value: {fileID: 21300000, guid: fd73aef9b511987479f592db7ccbd9cd, type: 3}
-    - time: 1.1333333
+    - time: 1
       value: {fileID: 21300000, guid: c2e8fc6ba1c49a34797e9c2c3e02ace4, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 15
+  m_SampleRate: 17
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -96,7 +96,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.2
+    m_StopTime: 1.0588236
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -124,35 +124,35 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.06666667
+  - time: 0.05882353
     functionName: SetAttackAnimCancelFlag
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 0.46666667
+  - time: 0.4117647
     functionName: SetAttackAnimCancelFlag
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.53333336
-    functionName: PlayAttack
+  - time: 0.47058824
+    functionName: PlaySound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8
+  - time: 0.7058824
     functionName: SetAttackAnimCancelFlag
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 1.1333333
+  - time: 1
     functionName: SetAttackAnimCancelFlag
     data: 
     objectReferenceParameter: {fileID: 0}

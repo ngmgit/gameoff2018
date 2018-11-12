@@ -12,6 +12,7 @@ namespace SA
         [Header("Attack Audio")]
         public AudioClip NormalAttack;
         public AudioClip Slash;
+        public AudioClip InitChargeSlam;
 
         private float delayCounter = 0;
         private bool inAttackMode = true;
@@ -35,6 +36,7 @@ namespace SA
                 {
                     if (delayCounter > midHoldTime && states.movementValues.vertical < -0.1f)
                     {
+                        states.currentAudio.clip = InitChargeSlam;
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
                         SetDefaults();
                     }
@@ -62,7 +64,10 @@ namespace SA
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
                     }
                     else
+                    {
+                        states.currentAudio.clip = InitChargeSlam;
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
+                    }
                 }
                 SetDefaults();
             }

@@ -15,3 +15,4 @@ MonoBehaviour:
   longHoldTime: 0.5
   NormalAttack: {fileID: 8300000, guid: db3d4a0bd38563546b79fec1546363dc, type: 3}
   Slash: {fileID: 8300000, guid: 30422d1c9ed6c3a4abc59aab9adbee86, type: 3}
+  InitChargeSlam: {fileID: 8300000, guid: 38af8c7564741c541ada9759947d1232, type: 3}

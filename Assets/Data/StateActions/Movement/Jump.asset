@@ -14,3 +14,4 @@ MonoBehaviour:
   jumpForce: 0.6
   jumpTime: 0.3
   initJumpMultiplier: 15
+  jumpAudio: {fileID: 8300000, guid: d687faf6ea21b614bba0d86fc5136e06, type: 3}

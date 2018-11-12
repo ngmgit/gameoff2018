@@ -10,6 +10,7 @@ namespace SA
 		public float jumpForce = 0.6f;
 		public float jumpTime = 0.3f;
 		public float initJumpMultiplier = 15;
+		public AudioClip jumpAudio;
 
 		private bool isJumping = false;
 		private float jumpTimeCounter;
@@ -22,6 +23,8 @@ namespace SA
 				isJumping = true;
 				jumpTimeCounter = jumpTime;
 				states.rigid.AddForce(Vector2.up * jumpForce * initJumpMultiplier, ForceMode2D.Impulse);
+
+				PlayJumpSound(states);
 			}
 
 			if (states.inputs.isJumpHold && isJumping)
@@ -40,5 +43,12 @@ namespace SA
 				isJumping = false;
 			}
         }
+
+		private void PlayJumpSound(StateManager states)
+		{
+			states.currentAudio.Stop();
+			states.currentAudio.clip = jumpAudio;
+			states.currentAudio.Play();
+		}
     }
 }
