@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   dashSpeed: 2
+  dashAudio: {fileID: 8300000, guid: 9c785967db9efac4299f7466e782e317, type: 3}

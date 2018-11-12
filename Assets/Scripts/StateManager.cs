@@ -39,6 +39,8 @@ namespace SA
         public int AttackPrimaryType;
         [HideInInspector]
         public bool canSkipAttackAnim = false;
+        [HideInInspector]
+        public AudioSource currentAudio;
 
         [Header("State Config")]
         public StateActions initActionsBatch;
@@ -82,6 +84,7 @@ namespace SA
             circleGroundCollider = GetComponent<CircleCollider2D>();
 		    circleRadiusOffset = circleGroundCollider.radius - colliderHorizontalOffset;
 		    downRaySize = circleGroundCollider.radius + colliderVerticalOffset;
+            currentAudio = GetComponent<AudioSource>();
         }
 
         private void FixedUpdate()

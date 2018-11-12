@@ -13,4 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   midHoldTime: 0.3
   longHoldTime: 0.5
-  delayCounter: 1.1231613
+  NormalAttack: {fileID: 8300000, guid: db3d4a0bd38563546b79fec1546363dc, type: 3}
+  Slash: {fileID: 8300000, guid: 30422d1c9ed6c3a4abc59aab9adbee86, type: 3}

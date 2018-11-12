@@ -13,8 +13,11 @@ namespace SA
 			states.anim.SetFloat("moving", Mathf.Abs(states.movementValues.horizontal));
 			states.anim.SetBool("dash", states.inputs.isDash);
 
-			if (states.inputs.isAttackingDown)
-				states.anim.SetBool("attackPrimary", states.inputs.isAttackingDown);
+			if(!states.currentAudio.isPlaying && states.inputs.isDash)
+            {
+                states.currentAudio.Stop();
+                states.currentAudio.Play();
+            }
 		}
 	}
 }

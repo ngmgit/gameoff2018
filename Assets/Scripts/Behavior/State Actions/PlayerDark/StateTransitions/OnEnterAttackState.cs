@@ -9,7 +9,7 @@ namespace SA
     {
         public override void Execute(StateManager states)
         {
-
+			states.rigid.velocity = new Vector2(states.rigid.velocity.x/4,states.rigid.velocity.y);
 		}
 	}
 }

@@ -9,8 +9,12 @@ namespace SA
         public float midHoldTime = 0.5f;
         public float longHoldTime = 1.5f;
 
+        [Header("Attack Audio")]
+        public AudioClip NormalAttack;
+        public AudioClip Slash;
+
         private float delayCounter = 0;
-        private bool inAttackMode = false;
+        private bool inAttackMode = true;
 
 		public override void Execute(StateManager states)
 		{
@@ -36,6 +40,7 @@ namespace SA
                     }
                     else if (delayCounter > midHoldTime && (states.movementValues.vertical > -0.1f && states.movementValues.vertical < 0.1f))
                     {
+                        states.currentAudio.clip = Slash;
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
                         SetDefaults();
                     }
@@ -47,13 +52,18 @@ namespace SA
                 if (states.AttackPrimaryType == -1 && inAttackMode)
                 {
                     if (delayCounter < midHoldTime)
+                    {
+                        states.currentAudio.clip = NormalAttack;
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.Normal;
+                    }
                     else if (delayCounter < longHoldTime)
+                    {
+                        states.currentAudio.clip = Slash;
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
+                    }
                     else
                         states.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
                 }
-
                 SetDefaults();
             }
 		}

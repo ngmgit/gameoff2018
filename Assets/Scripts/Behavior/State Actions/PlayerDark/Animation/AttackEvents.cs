@@ -18,4 +18,10 @@ public class AttackEvents : MonoBehaviour
 			states.value.canSkipAttackAnim = false;
 		}
 	}
+
+	private void PlayAttack()
+	{
+		states.value.currentAudio.Stop();
+		states.value.currentAudio.Play();
+	}
 }
