@@ -11,13 +11,23 @@ namespace SA
 		public float jumpTime = 0.3f;
 		public float initJumpMultiplier = 15;
 		public AudioClip jumpAudio;
+		[Range(0,1)]
+		public float audioVolume = 1;
+		public float delayJumpTime = 0.3f;
 
 		private bool isJumping = false;
 		private float jumpTimeCounter;
+		private float fallDelayJumpTime = 0;
 
         public override void Execute(StateManager states)
         {
-            if (states.inputs.isJumpDown && states.isGrounded)
+			if (!states.isGrounded)
+				fallDelayJumpTime += Time.deltaTime;
+			else
+				fallDelayJumpTime = 0;
+
+
+            if (states.inputs.isJumpDown && fallDelayJumpTime < delayJumpTime)
 			{
 				states.rigid.velocity = Vector2.zero;
 				isJumping = true;
@@ -46,9 +56,8 @@ namespace SA
 
 		private void PlayJumpSound(StateManager states)
 		{
-			states.currentAudio.Stop();
 			states.currentAudio.clip = jumpAudio;
-			states.currentAudio.Play();
+			states.PlayAudio(audioVolume);
 		}
     }
 }

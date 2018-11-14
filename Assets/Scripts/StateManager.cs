@@ -102,5 +102,12 @@ namespace SA
             if(currentState != null)
                 currentState.Tick(this);
         }
+
+        public void PlayAudio(float vol = 1)
+        {
+            currentAudio.Stop();
+            currentAudio.volume = vol;
+            currentAudio.Play();
+        }
     }
 }

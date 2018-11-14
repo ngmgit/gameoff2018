@@ -29,6 +29,10 @@ namespace SA
 				return true;
 			}
 
+			// When in attack animatins and falling down
+			if (!state.isGrounded && !state.anim.GetCurrentAnimatorStateInfo(0).IsTag("AttackPrimary"))
+				return true;
+
 			return false;
 		}
 

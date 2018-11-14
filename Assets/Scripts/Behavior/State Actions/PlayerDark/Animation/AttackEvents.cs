@@ -23,8 +23,7 @@ public class AttackEvents : MonoBehaviour
 
 	private void PlaySound()
 	{
-		states.value.currentAudio.Stop();
-		states.value.currentAudio.Play();
+		states.value.PlayAudio();
 	}
 
 	private void SetGroundSlamChargeSound()
