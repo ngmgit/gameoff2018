@@ -20,7 +20,7 @@ public class WalkFSM : NinjaPixelShortFSMBase
         if (MonoScriptRef.isPlayerDetected)
         {
             animator.SetBool("move", false);
-            MonoScriptRef.HaltPlayer();
+            MonoScriptRef.HaltNPC();
         }
     }
 

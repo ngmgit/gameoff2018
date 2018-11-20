@@ -11,7 +11,7 @@ public class IdleFSM : NinjaPixelShortFSMBase
 
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		MonoScriptRef.HaltPlayer();
+		MonoScriptRef.HaltNPC();
 
 		if (MonoScriptRef.isPlayerDetected)
 			animator.SetBool("vanish", true);

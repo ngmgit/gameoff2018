@@ -121,17 +121,21 @@ MonoBehaviour:
   spawnPosition: {fileID: 0}
   PlayerTransform: {fileID: 11400000, guid: 6789e0b75455a2947a335aecf4682827, type: 2}
   speed: 3
+  isDead: 0
+  isHurt: 0
   canAttack: 0
   canMove: 0
   isGrounded: 0
   isPlayerDetected: 0
+  isObstructed: 0
   isRespawnPositionSet: 0
+  mDirection: {x: 0, y: 0}
+  respawnPosition: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 256
   lengthOffset: {x: 0.1, y: 0.2}
-  mDirection: {x: 0, y: 0}
-  respawnPosition: {x: 0, y: 0, z: 0}
+  ObstacleRayOffset: {x: 0, y: 0}
 --- !u!212 &212240195909923066
 SpriteRenderer:
   m_ObjectHideFlags: 1

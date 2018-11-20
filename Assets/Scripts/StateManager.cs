@@ -81,7 +81,7 @@ namespace SA
 
             anim = GetComponentInChildren<Animator>();
 
-            circleGroundCollider = GetComponent<CircleCollider2D>();
+            circleGroundCollider = GetComponentInChildren<CircleCollider2D>();
 		    circleRadiusOffset = circleGroundCollider.radius - colliderHorizontalOffset;
 		    downRaySize = circleGroundCollider.radius + colliderVerticalOffset;
             currentAudio = GetComponent<AudioSource>();

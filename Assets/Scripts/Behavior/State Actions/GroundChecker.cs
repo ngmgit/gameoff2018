@@ -6,13 +6,19 @@ namespace SA
 {
 	[CreateAssetMenu(menuName="Actions/State Actions/Ground Checker")]
 	public class GroundChecker : StateActions {
+		Vector2 circleCollCenter;
+		Vector2 LeftRayPos;
+		Vector2 RightRayPos;
 
         public override void Execute(StateManager states)
         {
-            Vector2 circleCollCenter = states.circleGroundCollider.bounds.center;
+            circleCollCenter = states.circleGroundCollider.bounds.center;
 
-			RaycastHit2D downRayLeft = Physics2D.Raycast (circleCollCenter + new Vector2(-states.circleRadiusOffset, 0), Vector2.down, states.downRaySize);
-			RaycastHit2D downRayRight = Physics2D.Raycast (circleCollCenter + new Vector2(states.circleRadiusOffset, 0), Vector2.down, states.downRaySize);
+			LeftRayPos = circleCollCenter + new Vector2(-states.circleRadiusOffset, 0);
+			RightRayPos = circleCollCenter + new Vector2(states.circleRadiusOffset, 0);
+
+			RaycastHit2D downRayLeft = Physics2D.Raycast (LeftRayPos, Vector2.down, states.downRaySize);
+			RaycastHit2D downRayRight = Physics2D.Raycast (RightRayPos, Vector2.down, states.downRaySize);
 			RaycastHit2D downRay = Physics2D.Raycast (circleCollCenter, Vector2.down, states.downRaySize);
 
 			if (downRayRight.collider != null || downRayLeft.collider != null || downRay.collider != null)
@@ -30,6 +36,14 @@ namespace SA
 			{
 				states.isGrounded = false;
 			}
+
+			DrawColliders(states.downRaySize);
         }
+
+		private void DrawColliders(float raysize)
+		{
+			Debug.DrawLine(LeftRayPos, new Vector2(LeftRayPos.x, LeftRayPos.y - raysize));
+			Debug.DrawLine(RightRayPos, new Vector2(RightRayPos.x, RightRayPos.y - raysize));
+		}
 	}
 }

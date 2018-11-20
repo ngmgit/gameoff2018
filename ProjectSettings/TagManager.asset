@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - BoundsChecker
+  - PlayerWeapon
   layers:
   - Default
   - TransparentFX
