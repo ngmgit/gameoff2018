@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Note: Consider scale into calculations as some of the assets might be sclaed in size
+// Base class where the common state and functionality for a simple NPC.
 public class SimpleNPCBase : MonoBehaviour
 {
 	public Transform spawnPosition;
 	public SO.TransformVariable PlayerTransform;
 	public float speed = 3;
+	public float idleDelayTime = 1;
 
 	[HideInInspector]
 	public bool isDead;
@@ -106,7 +109,7 @@ public class SimpleNPCBase : MonoBehaviour
 
 	public bool CheckIfHasToTurn()
 	 {
-		 Vector3 playerPosition = PlayerTransform.value.position;
+		Vector3 playerPosition = PlayerTransform.value.position;
 
 		if (playerPosition.x > transform.position.x && transform.localScale.x == -1 * Mathf.Abs(mDirection.x))
 			return true;
@@ -115,5 +118,22 @@ public class SimpleNPCBase : MonoBehaviour
 			return true;
 
 		return false;
+	}
+
+	public void RunIdleCR()
+	{
+		StartCoroutine("IdleDelayCR");
+	}
+
+	public void StopIdleCR()
+	{
+		StopCoroutine("IdleDelayCR");
+		canMove = true;
+	}
+
+	public virtual IEnumerator IdleDelayCR()
+	{
+		 yield return new WaitForSeconds(idleDelayTime);
+		 canMove = true;
 	}
 }

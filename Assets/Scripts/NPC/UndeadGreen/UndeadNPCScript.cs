@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class UndeadNPCScript : SimpleNPCBase
 {
-	public int idleDelayTime = 1;
-
 	// Use this for initialization
 	protected override void Start ()
 	{
@@ -24,23 +22,6 @@ public class UndeadNPCScript : SimpleNPCBase
 
 		if (isGrounded && canMove)
 			rigid.velocity = new Vector2(mDirection.x * speed, rigid.velocity.y);
-	}
-
-	public void RunIdleCR()
-	{
-		StartCoroutine("IdleDelayCR");
-	}
-
-	public void StopIdleCR()
-	{
-		StopCoroutine("IdleDelayCR");
-		canMove = true;
-	}
-
-	protected IEnumerator IdleDelayCR()
-	{
-		 yield return new WaitForSeconds(idleDelayTime);
-		 canMove = true;
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
