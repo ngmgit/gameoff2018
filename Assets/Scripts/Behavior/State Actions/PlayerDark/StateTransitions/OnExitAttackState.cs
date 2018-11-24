@@ -9,8 +9,8 @@ namespace SA
     {
         public override void Execute(StateManager states)
         {
-            states.AttackPrimaryType = -1;
-			states.anim.SetInteger("AttackPrimaryType", states.AttackPrimaryType);
+            states.playerDark.AttackPrimaryType = -1;
+			states.anim.SetInteger("AttackPrimaryType", states.playerDark.AttackPrimaryType);
             states.anim.SetBool("attackPrimary", false);
         }
     }

@@ -15,7 +15,7 @@ namespace SA
 				{
 					if (wantToMoveOppositeDir(state) &&
 						state.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2 &&
-						state.canSkipAttackAnim)
+						state.playerDark.canSkipAttackAnim)
 					{
 						SetOnEnd(state);
 						return true;
@@ -49,8 +49,8 @@ namespace SA
 
 		private void SetOnEnd(StateManager state)
 		{
-			state.canSkipAttackAnim = false;
-			state.AttackPrimaryType = -1;
+			state.playerDark.canSkipAttackAnim = false;
+			state.playerDark.AttackPrimaryType = -1;
 		}
 	}
 }

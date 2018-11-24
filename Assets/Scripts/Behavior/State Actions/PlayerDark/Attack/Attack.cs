@@ -19,7 +19,7 @@ namespace SA
 
 		public override void Execute(StateManager states)
 		{
-            states.AttackPrimaryType = -1;
+            states.playerDark.AttackPrimaryType = -1;
 
             if (states.inputs.isAttackingDown)
             {
@@ -37,13 +37,13 @@ namespace SA
                     if (delayCounter > midHoldTime && states.movementValues.vertical < -0.1f)
                     {
                         states.currentAudio.clip = InitChargeSlam;
-                        states.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
+                        states.playerDark.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
                         SetDefaults();
                     }
                     else if (delayCounter > midHoldTime && (states.movementValues.vertical > -0.1f && states.movementValues.vertical < 0.1f))
                     {
                         states.currentAudio.clip = Slash;
-                        states.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
+                        states.playerDark.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
                         SetDefaults();
                     }
                 }
@@ -51,22 +51,22 @@ namespace SA
 
             if (states.inputs.isAttackingUp)
             {
-                if (states.AttackPrimaryType == -1 && inAttackMode)
+                if (states.playerDark.AttackPrimaryType == -1 && inAttackMode)
                 {
                     if (delayCounter < midHoldTime)
                     {
                         states.currentAudio.clip = NormalAttack;
-                        states.AttackPrimaryType = AttackTypes.PrimaryAttack.Normal;
+                        states.playerDark.AttackPrimaryType = AttackTypes.PrimaryAttack.Normal;
                     }
                     else if (delayCounter < longHoldTime)
                     {
                         states.currentAudio.clip = Slash;
-                        states.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
+                        states.playerDark.AttackPrimaryType = AttackTypes.PrimaryAttack.SlashInFront;
                     }
                     else
                     {
                         states.currentAudio.clip = InitChargeSlam;
-                        states.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
+                        states.playerDark.AttackPrimaryType = AttackTypes.PrimaryAttack.GroundCrushAttack;
                     }
                 }
                 SetDefaults();

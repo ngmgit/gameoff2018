@@ -15,9 +15,9 @@ public class AttackEvents : MonoBehaviour
 		if (states != null)
 		{
 		if (i == 1)
-			states.value.canSkipAttackAnim = true;
+			states.value.playerDark.canSkipAttackAnim = true;
 		else
-			states.value.canSkipAttackAnim = false;
+			states.value.playerDark.canSkipAttackAnim = false;
 		}
 	}
 

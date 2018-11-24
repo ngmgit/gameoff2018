@@ -4,8 +4,29 @@ using UnityEngine;
 
 namespace SA
 {
+    [System.Serializable]
+    public struct PlayerDarkState
+    {
+        [HideInInspector]
+        public int AttackPrimaryType;
+        [HideInInspector]
+        public bool canSkipAttackAnim;
+    }
+
+    public struct PlayerLightState
+    {
+
+    }
+
     public class StateManager : MonoBehaviour
     {
+        // *** Player Dark ***
+        public PlayerDarkState playerDark;
+
+        // *** Player Light ***
+        public PlayerLightState playerLight;
+
+        // *** Common ***
         public MovementValues movementValues;
 
         [System.Serializable]
@@ -35,10 +56,6 @@ namespace SA
             public bool isDash;
         }
 
-        [HideInInspector]
-        public int AttackPrimaryType;
-        [HideInInspector]
-        public bool canSkipAttackAnim = false;
         [HideInInspector]
         public AudioSource currentAudio;
 
