@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b1c1c68e3112b458cc9ae498754d3b, type: 3}
+  m_Name: InputManagerDark
+  m_EditorClassIdentifier: 
+  playerState: {fileID: 11400000, guid: ca20f6e123898d74694872c52a7152a1, type: 2}
+  horizontal: {fileID: 11400000, guid: 2f4a00345cced0549bb8f79e0f098cf1, type: 2}
+  vertical: {fileID: 11400000, guid: 9274ed833f220374d9712eb49e375dd5, type: 2}
+  jump: {fileID: 11400000, guid: 3712613e442c9af48a746f63821062c2, type: 2}
+  jumpKeyDown: {fileID: 11400000, guid: 980d54b8b0826b04ab6fe5eeff93f060, type: 2}
+  jumpKeyUp: {fileID: 11400000, guid: e5ba95597147f2040ad649dd803cb269, type: 2}
+  dash: {fileID: 11400000, guid: b4d957f12171d4d47bbfff19155fddeb, type: 2}
+  dashHold: {fileID: 11400000, guid: d5f8d97c08799a64dad57714b6ac0efb, type: 2}
+  attack: {fileID: 11400000, guid: 8c76a498f21cfc04fbb1759e1e417dce, type: 2}
+  attackDown: {fileID: 11400000, guid: e45af6c845cc5de47bcc2bef864c5f29, type: 2}
+  attackUp: {fileID: 11400000, guid: 40a52c30479ffb1429331a7ad98f040f, type: 2}
+  vanish: {fileID: 0}
+  moveDirection: {x: 1, y: 0, z: 0}

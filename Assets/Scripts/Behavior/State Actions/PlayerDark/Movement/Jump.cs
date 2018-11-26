@@ -22,17 +22,20 @@ namespace SA
         public override void Execute(StateManager states)
         {
 			if (!states.isGrounded)
-				fallDelayJumpTime += Time.deltaTime;
-			else
-				fallDelayJumpTime = 0;
-
-
-            if (states.inputs.isJumpDown && fallDelayJumpTime < delayJumpTime)
 			{
-				states.rigid.velocity = Vector2.zero;
+				fallDelayJumpTime += Time.deltaTime;
+			}
+			else
+			{
+				fallDelayJumpTime = 0;
+				isJumping = false;
+			}
+
+            if (states.inputs.isJumpHold && states.isGrounded && !isJumping)
+			{
 				isJumping = true;
 				jumpTimeCounter = jumpTime;
-				states.rigid.AddForce(Vector2.up * jumpForce * initJumpMultiplier, ForceMode2D.Impulse);
+				states.rigid.velocity = new Vector2 (states.rigid.velocity.x,  initJumpMultiplier);
 
 				PlayJumpSound(states);
 			}
@@ -56,8 +59,11 @@ namespace SA
 
 		private void PlayJumpSound(StateManager states)
 		{
-			states.currentAudio.clip = jumpAudio;
-			states.PlayAudio(audioVolume);
+			if (jumpAudio)
+			{
+				states.currentAudio.clip = jumpAudio;
+				states.PlayAudio(audioVolume);
+			}
 		}
     }
 }

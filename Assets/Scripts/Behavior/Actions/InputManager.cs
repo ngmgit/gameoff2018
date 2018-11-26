@@ -19,7 +19,8 @@ namespace SA
         public SO.BoolVariable jump;
         public SO.BoolVariable jumpKeyDown;
         public SO.BoolVariable jumpKeyUp;
-        public InputButton dash;
+        public SO.BoolVariable dash;
+        public SO.BoolVariable dashHold;
         public SO.BoolVariable attack;
         public SO.BoolVariable attackDown;
         public SO.BoolVariable attackUp;
@@ -45,7 +46,8 @@ namespace SA
                 playerState.value.inputs.isJumpDown = jumpKeyDown.value;
                 playerState.value.inputs.isJumpUp = jumpKeyUp.value;
 
-                playerState.value.inputs.isDash = dash.isPressed;
+                playerState.value.inputs.isDash = dash.value;
+                playerState.value.inputs.isDashHold = dashHold.value;
 
                 playerState.value.inputs.isAttacking = attack.value;
                 playerState.value.inputs.isAttackingDown = attackDown.value;

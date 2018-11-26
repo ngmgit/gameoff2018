@@ -13,9 +13,16 @@ namespace SA
         public bool canSkipAttackAnim;
     }
 
+    [System.Serializable]
     public struct PlayerLightState
     {
+        public bool wallDetected;
+        public bool isLedgeDetected;
 
+        [Header("Ray Positions")]
+		public Transform topRayPosition;
+		public Transform middleRayPosition;
+		public Transform bottomRayPosition;
     }
 
     public class StateManager : MonoBehaviour
@@ -54,6 +61,7 @@ namespace SA
             public bool isAttackingUp;
             public bool isVanish;
             public bool isDash;
+            public bool isDashHold;
         }
 
         [HideInInspector]
@@ -65,7 +73,8 @@ namespace SA
 
         // Ground Check State
         [Header("Ground Collider Details")]
-        public bool isGrounded = false;
+        public bool isGrounded;
+        public bool isFalling;
         public string platformTag = "Platform";
         public float colliderHorizontalOffset = 0.05f;
         public float colliderVerticalOffset = 0.05f;
