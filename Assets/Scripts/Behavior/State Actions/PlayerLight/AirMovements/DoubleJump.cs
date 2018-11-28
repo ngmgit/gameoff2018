@@ -7,17 +7,16 @@ namespace SA
     [CreateAssetMenu(menuName = "Actions/State Actions/Light Player/Double Jump")]
     public class DoubleJump : StateActions
     {
-		bool prevFrameWallDetect;
+        public float jumpForce;
 
         public override void Execute(StateManager states)
         {
-			if (states.playerLight.wallDetected && !prevFrameWallDetect)
-				states.playerLight.canDoubleJump = true;
-
             if (!states.playerLight.wallDetected && states.inputs.isJumpHold && states.playerLight.canDoubleJump)
-				states.playerLight.canDoubleJump = false;
-
-			prevFrameWallDetect = states.playerLight.wallDetected;
+            {
+                states.rigid.velocity = new Vector2(states.rigid.velocity.x, jumpForce);
+                states.playerLight.canDoubleJump = false;
+            }
+            states.anim.SetTrigger(DefaultAnimParameters.DoubleJump);
         }
     }
 }

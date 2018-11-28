@@ -11,3 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d3cfaa53227d14ab3424a76db6065d, type: 3}
   m_Name: WallMovements
   m_EditorClassIdentifier: 
+  idleSlideSpeed: -2
+  activeSlideSpeed: -8
+  wallRunSpeed: 8
+  wallJumpForce: 10

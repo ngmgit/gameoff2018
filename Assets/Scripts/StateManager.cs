@@ -17,8 +17,8 @@ namespace SA
     public struct PlayerLightState
     {
         public BoxCollider2D boxCollider;
-        public BoxCollider2D WallRunBoxCollider;
         public bool canDoubleJump;
+        public bool canSwitchtoDoubleJumpState;
         public bool wallDetected;
         public bool isLedgeDetected;
 

@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c89f11ee8fa3cf24b8ec55bcc494ed48, type: 3}
-  m_Name: Double Jump
+  m_Script: {fileID: 11500000, guid: 15aa3e4c32332394d9676fcdc2a64790, type: 3}
+  m_Name: Double Jump To Movement Light Condition
   m_EditorClassIdentifier: 
-  jumpForce: 11
+  description: 

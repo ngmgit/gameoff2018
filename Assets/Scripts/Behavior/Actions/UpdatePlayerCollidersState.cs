@@ -11,7 +11,11 @@ namespace SA
 
 		public override void Execute()
         {
-			states.value.anim.SetBool(DefaultAnimParameters.isFall, states.value.isFalling);
+			if (states.value.anim.GetCurrentAnimatorStateInfo(0).IsName("Acrobatics.Sommersault"))
+				states.value.anim.SetBool(DefaultAnimParameters.isFall, false);
+			else
+				states.value.anim.SetBool(DefaultAnimParameters.isFall, states.value.isFalling);
+
 			states.value.anim.SetBool(DefaultAnimParameters.IsGrounded, states.value.isGrounded);
 		}
 	}
