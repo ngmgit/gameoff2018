@@ -11,9 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09f12a9b8fb5e44eb81fa499afbecc4, type: 3}
   m_Name: InAir
   m_EditorClassIdentifier: 
-  onFixed: []
-  onUpdate: []
+  onFixed:
+  - {fileID: 11400000, guid: b765f8ca81cf95544bc7e35a3ae0bba2, type: 2}
+  onUpdate:
+  - {fileID: 11400000, guid: 746c3409a7702ab42bf05411487ee093, type: 2}
   onEnter: []
   onExit: []
-  idCount: 0
-  transitions: []
+  idCount: 1
+  transitions:
+  - id: 0
+    condition: {fileID: 11400000, guid: 2dba287ee422a654b8f87e7be53ae938, type: 2}
+    targetState: {fileID: 11400000, guid: a0d6625c00cd1c441aeae360a3adc1b6, type: 2}
+    disable: 0

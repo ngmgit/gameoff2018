@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 0.6
   jumpTime: 0.3
-  initJumpMultiplier: 8
+  initJumpMultiplier: 9
   jumpAudio: {fileID: 0}
   audioVolume: 1
   delayJumpTime: 0.4

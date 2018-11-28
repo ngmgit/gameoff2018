@@ -17,7 +17,7 @@ namespace SA
         public float minClamp = -35;
         public float maxClamp = 35;
         public RotateAxis targetAxis;
-        
+
         public enum RotateAxis
         {
             x, y, z

@@ -39,8 +39,10 @@ namespace SA
 			}
 			else
 			{
-				if (states.value.mTransform.position.y < prevY)
+				if (states.value.rigid.velocity.y < 0)
 					states.value.isFalling = true;
+				else
+					states.value.isFalling = false;
 
 				states.value.isGrounded = false;
 			}

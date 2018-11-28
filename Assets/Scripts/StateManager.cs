@@ -16,6 +16,9 @@ namespace SA
     [System.Serializable]
     public struct PlayerLightState
     {
+        public BoxCollider2D boxCollider;
+        public BoxCollider2D WallRunBoxCollider;
+        public bool canDoubleJump;
         public bool wallDetected;
         public bool isLedgeDetected;
 
@@ -110,6 +113,9 @@ namespace SA
             circleGroundCollider = GetComponentInChildren<CircleCollider2D>();
 		    circleRadiusOffset = circleGroundCollider.radius - colliderHorizontalOffset;
 		    downRaySize = circleGroundCollider.radius + colliderVerticalOffset;
+
+            playerLight.boxCollider = GetComponentInChildren<BoxCollider2D>();
+
             currentAudio = GetComponent<AudioSource>();
         }
 

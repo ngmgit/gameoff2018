@@ -9,6 +9,10 @@ namespace SA
 	{
 		public override void Execute(StateManager states)
 		{
+			if (states.movementValues.vertical < 0 && states.isGrounded)
+				states.playerLight.boxCollider.isTrigger = true;
+			else
+				states.playerLight.boxCollider.isTrigger = false;
 		}
 	}
 }

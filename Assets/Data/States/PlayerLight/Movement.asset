@@ -14,10 +14,15 @@ MonoBehaviour:
   onFixed:
   - {fileID: 11400000, guid: 7a10a53eefda450448a83505c6a43845, type: 2}
   - {fileID: 11400000, guid: aa318e1b41d03de4698d23b5fad72616, type: 2}
-  - {fileID: 11400000, guid: fabc4b807c2b50047b3ec6c01f3aac63, type: 2}
+  - {fileID: 11400000, guid: 77a353d9d26a8bd4ea8cf46c2b30aed4, type: 2}
+  - {fileID: 11400000, guid: 72de11e3f76566e44b4c31b1cc7c6728, type: 2}
   onUpdate:
   - {fileID: 11400000, guid: cf40fc1ae23de7d4abe8dd0c48bc3cc1, type: 2}
   onEnter: []
   onExit: []
-  idCount: 0
-  transitions: []
+  idCount: 1
+  transitions:
+  - id: 0
+    condition: {fileID: 11400000, guid: 6cafadce48f0f9f4f8b7a0a430f10033, type: 2}
+    targetState: {fileID: 11400000, guid: eef0c62dc52e77248b574f60c71d3f05, type: 2}
+    disable: 0

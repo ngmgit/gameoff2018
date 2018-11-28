@@ -44,10 +44,15 @@ namespace SA
 
 
 			if (isTopDetected && isBottomDetected && isMiddleDetected)
+			{
 				states.value.playerLight.wallDetected = true;
+				states.value.anim.SetBool(DefaultAnimParameters.OnWall, true);
+			}
 			else
+			{
 				states.value.playerLight.wallDetected = false;
-
+				states.value.anim.SetBool(DefaultAnimParameters.OnWall, false);
+			}
 
 			isLedgeDetected = Physics2D.Linecast(states.value.playerLight.topRayPosition.position, topRayEnd, ledgeLayer);
 			states.value.playerLight.isLedgeDetected = isLedgeDetected;

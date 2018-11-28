@@ -19,7 +19,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   rayLength: 0.4
-  isTopDetected: 1
-  isBottomDetected: 1
-  isMiddleDetected: 1
+  isTopDetected: 0
+  isBottomDetected: 0
+  isMiddleDetected: 0
   isLedgeDetected: 0

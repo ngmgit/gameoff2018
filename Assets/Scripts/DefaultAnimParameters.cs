@@ -17,7 +17,6 @@ public static class DefaultAnimParameters
 
 	// jump variations
 	public static string DoubleJump = "doubleJump";
-	public static string Fall       = "fall";
 	public static string WallRun    = "wallRun";
 	public static string WallJump   = "wallJump";
 
@@ -34,5 +33,6 @@ public static class DefaultAnimParameters
 	// other state
 	public static string IsGrounded = "isGrounded";
 	public static string InAir      = "inAir";
+	public static string isFall     = "isFalling";
 	public static string OnWall     = "onWall";
 }
