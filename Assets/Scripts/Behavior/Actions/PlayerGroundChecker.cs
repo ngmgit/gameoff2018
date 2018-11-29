@@ -12,8 +12,6 @@ namespace SA
 		Vector2 LeftRayPos;
 		Vector2 RightRayPos;
 
-		float prevY;
-
         public override void Execute()
         {
             circleCollCenter = states.value.circleGroundCollider.bounds.center;
@@ -47,7 +45,6 @@ namespace SA
 				states.value.isGrounded = false;
 			}
 
-			prevY = states.value.mTransform.position.y;
 			DrawColliders(states.value.downRaySize);
         }
 

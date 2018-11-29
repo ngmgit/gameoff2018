@@ -17,9 +17,9 @@ MonoBehaviour:
     m_Bits: 256
   ledgeLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   rayLength: 0.4
-  isTopDetected: 0
-  isBottomDetected: 0
-  isMiddleDetected: 0
+  isTopDetected: 1
+  isBottomDetected: 1
+  isMiddleDetected: 1
   isLedgeDetected: 0

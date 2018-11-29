@@ -19,6 +19,7 @@ public static class DefaultAnimParameters
 	public static string DoubleJump = "doubleJump";
 	public static string WallRun    = "wallRun";
 	public static string WallJump   = "wallJump";
+	public static string LedgeGrab = "ledgeGrab";
 
 	// Attack
 	public static string Attack  = "attack";

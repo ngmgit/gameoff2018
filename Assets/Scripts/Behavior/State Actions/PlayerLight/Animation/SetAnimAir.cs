@@ -9,6 +9,8 @@ namespace SA
 	{
 		public override void Execute(StateManager states)
 		{
+			if (states.playerLight.isLedgeDetected && states.movementValues.vertical >= 0)
+				states.anim.SetTrigger(DefaultAnimParameters.LedgeGrab);
 		}
 	}
 }

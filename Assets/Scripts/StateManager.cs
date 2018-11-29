@@ -141,5 +141,21 @@ namespace SA
             currentAudio.volume = vol;
             currentAudio.Play();
         }
+
+        public bool isFacingOppToWall()
+		{
+			if (mTransform.localScale.x > 0)
+			{
+				if (movementValues.horizontal < 0.1)
+					return true;
+			}
+			else
+			{
+				if (movementValues.horizontal > 0.1)
+					return true;
+			}
+
+			return false;
+		}
     }
 }

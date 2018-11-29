@@ -12,6 +12,9 @@ namespace SA
 			if (state.isGrounded)
 				return true;
 
+			if (!state.playerLight.isLedgeDetected && !state.playerLight.wallDetected && state.isFalling)
+				return true;
+
 			return false;
 		}
 	}

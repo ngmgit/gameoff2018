@@ -430,7 +430,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 430934587}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.5, y: 12.8, z: -10.029593}
+  m_LocalPosition: {x: -14.211715, y: -19.618536, z: -10.029593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -712,7 +712,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519656997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -12, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 824433987}
@@ -776,7 +776,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 658561558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.5, y: 12.8, z: -0.029593892}
+  m_LocalPosition: {x: -14.2, y: -24.1, z: -0.029593892}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2094557046}
@@ -888,7 +888,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d11e3d266399b2845a458d50d8e91209, type: 2}
   - {fileID: 11400000, guid: 537d1dceb38e97348b90db6a26f3381b, type: 2}
   updateActions:
-  - {fileID: 11400000, guid: b8752b5ae10db1746a5442e1f343f247, type: 2}
+  - {fileID: 11400000, guid: a55ef3631426bd94191aa0738cc5076c, type: 2}
 --- !u!1001 &670790324
 Prefab:
   m_ObjectHideFlags: 0
@@ -5509,7 +5509,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1253196963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.5, y: 12.8, z: -10.029593}
+  m_LocalPosition: {x: -14.200001, y: -24.1, z: -10.029593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 313434674}
@@ -5648,7 +5648,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 21.129223, y: 21.53661}
+    - - {x: 34.88658, y: 30.97822}
       - {x: 21.070223, y: 30.626146}
       - {x: -32.70651, y: 30.611376}
       - {x: -32.932045, y: 21.239468}
@@ -5659,8 +5659,8 @@ PolygonCollider2D:
       - {x: -29.684875, y: -33.591805}
       - {x: 61.69351, y: -33.352924}
       - {x: 61.55736, y: 0.48386908}
-      - {x: 31.73706, y: 0.46177864}
-      - {x: 31.804466, y: 21.503359}
+      - {x: 34.36802, y: 0.46177864}
+      - {x: 34.751144, y: 0.35041952}
 --- !u!4 &1406335456
 Transform:
   m_ObjectHideFlags: 0
