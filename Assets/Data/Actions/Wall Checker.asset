@@ -18,8 +18,8 @@ MonoBehaviour:
   ledgeLayer:
     serializedVersion: 2
     m_Bits: 2048
-  rayLength: 0.4
+  rayLength: 0.2
   isTopDetected: 1
   isBottomDetected: 1
   isMiddleDetected: 1
-  isLedgeDetected: 0
+  isLedgeDetected: 1

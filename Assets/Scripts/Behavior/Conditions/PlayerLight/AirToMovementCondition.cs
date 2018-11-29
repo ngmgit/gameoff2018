@@ -12,7 +12,10 @@ namespace SA
 			if (state.isGrounded)
 				return true;
 
-			if (!state.playerLight.isLedgeDetected && !state.playerLight.wallDetected && state.isFalling)
+			if (!state.playerLight.isLedgeDetected &&
+				!state.playerLight.wallDetected &&
+				state.isFalling &&
+				!state.playerLight.canSwitchtoDoubleJumpState)
 				return true;
 
 			return false;
