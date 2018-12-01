@@ -31,9 +31,9 @@ namespace SA
 
         public override void Execute()
         {
-            if (horizontal.value < 0)
+            if (horizontal.value < 0 && playerState.value.movementValues.moveDirection.x < 0)
                 moveDirection = Vector2.left;
-            else
+            else if (horizontal.value > 0 && playerState.value.movementValues.moveDirection.x > 0)
                 moveDirection = Vector2.right;
 
             if (playerState != null)

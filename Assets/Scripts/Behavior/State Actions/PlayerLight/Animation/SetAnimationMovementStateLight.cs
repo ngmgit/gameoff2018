@@ -16,6 +16,8 @@ namespace SA
 				states.anim.SetBool(DefaultAnimParameters.Crouch, true);
 			else
 				states.anim.SetBool(DefaultAnimParameters.Crouch, false);
+
+			states.anim.SetBool(DefaultAnimParameters.isFall, states.isFalling);
 		}
 	}
 }

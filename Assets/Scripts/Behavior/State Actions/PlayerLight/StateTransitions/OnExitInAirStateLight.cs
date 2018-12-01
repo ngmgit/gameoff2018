@@ -11,6 +11,12 @@ namespace SA
         public override void Execute(StateManager states)
         {
 			states.playerLight.canSwitchtoDoubleJumpState = false;
+			states.anim.SetBool(DefaultAnimParameters.isFall, false);
+
+			if (states.rigid.constraints ==  RigidbodyConstraints2D.FreezePosition)
+			{
+				states.rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+			}
 		}
 	}
 }

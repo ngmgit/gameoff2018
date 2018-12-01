@@ -213,3 +213,4 @@ QualitySettings:
   m_PerPlatformDefaultQuality:
     Standalone: 0
     WebGL: 5
+    iPhone: 0

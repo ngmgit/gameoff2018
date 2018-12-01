@@ -23,7 +23,7 @@ namespace SA
 				}
 				else
 				{
-					if (!states.isFacingOppToWall())
+					if (!states.isFacingOppToWall() && Mathf.Abs(states.movementValues.horizontal) > 0.1f)
 						states.rigid.velocity = new Vector2(0, idleSlideSpeed);
 				}
 			}

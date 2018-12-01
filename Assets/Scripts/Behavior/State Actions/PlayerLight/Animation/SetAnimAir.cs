@@ -11,6 +11,8 @@ namespace SA
 		{
 			if (states.playerLight.isLedgeDetected && states.movementValues.vertical >= 0)
 				states.anim.SetTrigger(DefaultAnimParameters.LedgeGrab);
+
+			states.anim.SetBool(DefaultAnimParameters.isFall, states.isFalling);
 		}
 	}
 }

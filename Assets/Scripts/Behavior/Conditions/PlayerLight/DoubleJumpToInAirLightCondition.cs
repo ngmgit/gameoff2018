@@ -11,7 +11,7 @@ namespace SA
 
 		public override bool CheckCondition(StateManager state)
 		{
-			if (state.playerLight.wallDetected)
+			if (state.playerLight.wallDetected && !state.playerLight.isLedgeDetected)
 				return true;
 
 			return false;

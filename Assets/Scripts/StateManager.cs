@@ -16,6 +16,7 @@ namespace SA
     [System.Serializable]
     public struct PlayerLightState
     {
+        [HideInInspector]
         public BoxCollider2D boxCollider;
         public bool canDoubleJump;
         public bool canSwitchtoDoubleJumpState;
@@ -146,16 +147,16 @@ namespace SA
 		{
 			if (mTransform.localScale.x > 0)
 			{
-				if (movementValues.horizontal < 0.1)
-					return true;
+				if (movementValues.horizontal > 0.1)
+					return false;
 			}
 			else
 			{
-				if (movementValues.horizontal > 0.1)
-					return true;
+				if (movementValues.horizontal < 0.1)
+					return false;
 			}
 
-			return false;
+			return true;
 		}
     }
 }
