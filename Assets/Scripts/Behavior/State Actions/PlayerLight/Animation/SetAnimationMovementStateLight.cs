@@ -12,10 +12,11 @@ namespace SA
 			states.anim.SetFloat(DefaultAnimParameters.Walk, Mathf.Abs(states.movementValues.horizontal));
 			states.anim.SetBool(DefaultAnimParameters.Slide, states.inputs.isDashHold);
 
-			if (states.movementValues.vertical < 0)
+			if (states.movementValues.vertical < 0 || (states.playerLight.isCrouchWallDetected && !states.inputs.isDashHold))
 				states.anim.SetBool(DefaultAnimParameters.Crouch, true);
 			else
 				states.anim.SetBool(DefaultAnimParameters.Crouch, false);
+
 
 			states.anim.SetBool(DefaultAnimParameters.isFall, states.isFalling);
 		}

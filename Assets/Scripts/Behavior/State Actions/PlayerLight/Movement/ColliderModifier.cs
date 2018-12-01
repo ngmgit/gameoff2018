@@ -16,7 +16,7 @@ namespace SA
 			isCrouching = states.movementValues.vertical < 0 && states.isGrounded;
 			isSliding = states.inputs.isDashHold && states.isGrounded;
 
-			if (isCrouching || isSliding)
+			if (isCrouching || isSliding || states.playerLight.isCrouchWallDetected)
 				states.playerLight.boxCollider.isTrigger = true;
 			else
 				states.playerLight.boxCollider.isTrigger = false;

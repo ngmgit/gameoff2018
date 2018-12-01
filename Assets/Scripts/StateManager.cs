@@ -22,6 +22,7 @@ namespace SA
         public bool canSwitchtoDoubleJumpState;
         public bool wallDetected;
         public bool isLedgeDetected;
+        public bool isCrouchWallDetected;
 
         [Header("Ray Positions")]
 		public Transform topRayPosition;
