@@ -37,7 +37,7 @@ namespace SA
 			}
 			else
 			{
-				if (states.value.rigid.velocity.y < 0)
+				if (states.value.rigid.velocity.y < -0.05)
 					states.value.isFalling = true;
 				else
 					states.value.isFalling = false;

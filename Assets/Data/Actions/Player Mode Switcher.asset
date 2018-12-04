@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f226a25f97da424eb292b634dacd4c0, type: 3}
+  m_Name: Player Mode Switcher
+  m_EditorClassIdentifier: 
+  ModeChangedEvent: {fileID: 11400000, guid: 02d02d339eb793441a61888254aebc46, type: 2}
+  lightPlayer: {fileID: 11400000, guid: a7dd014881fe99745aa4c4b67891b4c3, type: 2}
+  darkPlayer: {fileID: 11400000, guid: ca20f6e123898d74694872c52a7152a1, type: 2}
+  lightPlayerOffset: {x: 0, y: 1}
+  isSwitchHold: {fileID: 11400000, guid: 6ab27da9cabf7b8408b05f6741cdf9fc, type: 2}
+  isSwitchUp: {fileID: 11400000, guid: 58d8a57f045621e4e88dc39646ab25ef, type: 2}

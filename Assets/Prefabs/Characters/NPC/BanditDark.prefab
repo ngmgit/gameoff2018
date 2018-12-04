@@ -96,7 +96,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.4, y: 2.4}
+    oldSize: {x: 2.6666667, y: 2.6666667}
     newSize: {x: 2.6666667, y: 2.6666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  lengthOffset: {x: 0.1, y: 0.1}
+  lengthOffset: {x: 0.1, y: 0.3}
   ObstacleRayOffset: {x: 0.1, y: 0.5}
 --- !u!212 &212157680190749660
 SpriteRenderer:

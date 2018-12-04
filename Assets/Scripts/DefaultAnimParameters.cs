@@ -16,10 +16,11 @@ public static class DefaultAnimParameters
 	public static string Vanish  = "vanish";
 
 	// jump variations
-	public static string DoubleJump = "doubleJump";
-	public static string WallRun    = "wallRun";
-	public static string WallJump   = "wallJump";
-	public static string LedgeGrab = "ledgeGrab";
+	public static string DoubleJump 	 = "doubleJump";
+	public static string WallRun    	 = "wallRun";
+	public static string WallJump   	 = "wallJump";
+	public static string LedgeGrab 		 = "ledgeGrab";
+	public static string isLedgeDetected = "isLedgeDetected";
 
 	// Attack
 	public static string Attack  = "attack";

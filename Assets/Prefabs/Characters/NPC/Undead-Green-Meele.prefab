@@ -135,7 +135,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  lengthOffset: {x: 0.1, y: 0.1}
+  lengthOffset: {x: 0.1, y: 0.2}
   ObstacleRayOffset: {x: 0.1, y: 0.15}
 --- !u!212 &212742986160436024
 SpriteRenderer:

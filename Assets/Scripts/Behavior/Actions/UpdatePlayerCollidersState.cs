@@ -12,6 +12,7 @@ namespace SA
 		public override void Execute()
         {
 			states.value.anim.SetBool(DefaultAnimParameters.IsGrounded, states.value.isGrounded);
+			states.value.anim.SetBool(DefaultAnimParameters.isLedgeDetected, states.value.playerLight.isLedgeDetected);
 		}
 	}
 }

@@ -25,6 +25,8 @@ namespace SA
         public SO.BoolVariable attackDown;
         public SO.BoolVariable attackUp;
         public InputButton vanish;
+        public SO.BoolVariable switchHold;
+        public SO.BoolVariable switchUp;
 
         [Header("Others")]
         public Vector3 moveDirection;

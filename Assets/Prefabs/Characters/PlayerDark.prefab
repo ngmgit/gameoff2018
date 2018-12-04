@@ -441,6 +441,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23148770d16e4d84eb5f9765afd7fbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDark:
+    AttackPrimaryType: 0
+    canSkipAttackAnim: 0
+  playerLight:
+    boxCollider: {fileID: 0}
+    canDoubleJump: 0
+    canSwitchtoDoubleJumpState: 0
+    wallDetected: 0
+    isLedgeDetected: 0
+    isCrouchWallDetected: 0
+    topRayPosition: {fileID: 0}
+    middleRayPosition: {fileID: 0}
+    bottomRayPosition: {fileID: 0}
   movementValues:
     horizontal: 0
     vertical: 0
@@ -456,12 +469,12 @@ MonoBehaviour:
     isAttackingUp: 0
     isVanish: 0
     isDash: 0
-  AttackPrimaryType: 0
-  canSkipAttackAnim: 0
+    isDashHold: 0
   currentAudio: {fileID: 0}
   initActionsBatch: {fileID: 0}
   currentState: {fileID: 11400000, guid: a60871765b920f7449987b654a90276c, type: 2}
   isGrounded: 0
+  isFalling: 0
   platformTag: Platform
   colliderHorizontalOffset: 0.05
   colliderVerticalOffset: 0.05

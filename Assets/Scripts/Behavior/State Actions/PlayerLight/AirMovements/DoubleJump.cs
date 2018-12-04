@@ -15,6 +15,7 @@ namespace SA
             {
                 states.rigid.velocity = new Vector2(states.rigid.velocity.x, jumpForce);
                 states.playerLight.canDoubleJump = false;
+                states.playerLight.canSwitchtoDoubleJumpState = true;
             }
             states.anim.SetTrigger(DefaultAnimParameters.DoubleJump);
         }

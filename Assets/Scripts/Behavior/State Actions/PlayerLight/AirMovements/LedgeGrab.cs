@@ -26,7 +26,7 @@ namespace SA
         {
             if (states.playerLight.isLedgeDetected && states.movementValues.vertical >= 0)
 			{
-				if (states.movementValues.vertical > 0.1 && states.isFacingOppToWall() && states.movementValues.horizontal < 0)
+				if (states.movementValues.vertical > 0.1 && states.isFacingOppToWall())
 				{
 					states.rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
 					states.rigid.AddForce(Vector2.up * wallJumpForce, ForceMode2D.Impulse);
