@@ -10,10 +10,10 @@ public class UndeadNPCScript : SimpleNPCBase
 	{
 		base.Start();
 
-		anim.GetBehaviour<UndeadIdleState>().MonoScriptRef = this;
-		anim.GetBehaviour<UndeadWalkState>().MonoScriptRef = this;
-		anim.GetBehaviour<UndeadAttackState>().MonoScriptRef = this;
-		anim.GetBehaviour<UndeadHurtState>().MonoScriptRef = this;
+		anim.GetBehaviour<IdleSMB>().MonoScriptRef = this;
+		anim.GetBehaviour<WalkSMB>().MonoScriptRef = this;
+		anim.GetBehaviour<AttackSMB>().MonoScriptRef = this;
+		anim.GetBehaviour<HurtSMB>().MonoScriptRef = this;
 	}
 
 	protected override void FixedUpdate()

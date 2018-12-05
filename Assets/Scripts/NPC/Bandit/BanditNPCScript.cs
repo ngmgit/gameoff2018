@@ -10,13 +10,11 @@ public class BanditNPCScript : SimpleNPCBase
 	{
 		base.Start();
 
-		// initialize the behavior scripts
-
-		anim.GetBehaviour<BanditIdleBehaviour>().MonoScriptRef = this;
-		anim.GetBehaviour<BanditWanderBehaviour>().MonoScriptRef = this;
+		anim.GetBehaviour<IdleSMB>().MonoScriptRef = this;
+		anim.GetBehaviour<WalkSMB>().MonoScriptRef = this;
+		anim.GetBehaviour<AttackSMB>().MonoScriptRef = this;
+		anim.GetBehaviour<HurtSMB>().MonoScriptRef = this;
 		anim.GetBehaviour<BanditAtkIdleBehaviour>().MonoScriptRef = this;
-		anim.GetBehaviour<BanditAttackBehaviour>().MonoScriptRef = this;
-		anim.GetBehaviour<BanditHurtBehaviour>().MonoScriptRef = this;
 	}
 
 
