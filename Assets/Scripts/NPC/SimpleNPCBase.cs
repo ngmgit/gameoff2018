@@ -29,12 +29,13 @@ public class SimpleNPCBase : MonoBehaviour
 	[HideInInspector]
 	public Vector3 respawnPosition;
 
+	[Header("Ground Collider Config")]
 	[Tooltip("Set the Ground colliders for the linecast mask")]
 	public LayerMask layerMask;
-	[Tooltip("Y offset from the bottom of the collider, x is upwards and y is for downward")]
-	public Vector2 lengthOffset;
-	[Tooltip("To set the origin for ray using the x value and to get the end position for the ray cast using the y value for Obstacle detection ray")]
-	public Vector2 ObstacleRayOffset;
+	[Tooltip("To set the origin for Ground ray")]
+	public Transform groundColliderOrigin;
+	public float groundColliderLength;
+	public float obstacleColliderLength;
 
 	protected BoxCollider2D col;
 	protected Rigidbody2D rigid;
@@ -57,32 +58,32 @@ public class SimpleNPCBase : MonoBehaviour
 
 	private void SetGroundStatus()
 	{
-		// Draw vertical lineCast to checking if grounded
-		// Top position for lineCast
-		Vector2 lineCastOffsetTop = mDirection.normalized * col.bounds.extents.x;
-		Vector2 lineCastPos = transform.position.toVecto2() + lineCastOffsetTop;
-		lineCastPos.y = col.bounds.min.y + lengthOffset.x;
+		if (!groundColliderOrigin)
+		{
+			Debug.LogError("Make sure ground collider origin is set!");
+			return;
+		}
 
-		// Bottom position for lineCast
-		Vector2 lineCastEndPos = new Vector2(lineCastPos.x, col.bounds.min.y - lengthOffset.y);
-		Debug.DrawLine(lineCastPos, lineCastEndPos);
+		Vector2 lineCastEndPos = groundColliderOrigin.position + (transform.up * -1 * groundColliderLength);
 
-		isGrounded = Physics2D.Linecast(lineCastPos, lineCastEndPos, layerMask);
+		Debug.DrawLine(groundColliderOrigin.position, lineCastEndPos);
+
+		isGrounded = Physics2D.Linecast(groundColliderOrigin.position, lineCastEndPos, layerMask);
 	}
 
 	private void SetObstacleStatus()
 	{
-		// Draw vertical lineCast to checking if grounded
-		// Top position for lineCast
-		Vector2 lineCastOffsetTop = mDirection.normalized * col.bounds.extents.x;
-		Vector2 lineCastPos = transform.position.toVecto2() + lineCastOffsetTop;
-		lineCastPos.y = col.bounds.min.y + ObstacleRayOffset.x;
+		if (!groundColliderOrigin)
+		{
+			Debug.LogError("Make sure obstacle collider origin is set!");
+			return;
+		}
 
-		// Bottom position for lineCast
-		Vector2 lineCastEndPos = new Vector2(lineCastPos.x + (mDirection.x * ObstacleRayOffset.y),  lineCastPos.y);
-		Debug.DrawLine(lineCastPos, lineCastEndPos);
+		Vector2 lineCastEndPos = groundColliderOrigin.position + (transform.right.normalized * (mDirection.x)* obstacleColliderLength);
 
-		isObstructed = Physics2D.Linecast(lineCastPos, lineCastEndPos, layerMask);
+		Debug.DrawLine(groundColliderOrigin.position, lineCastEndPos);
+
+		isObstructed = Physics2D.Linecast(groundColliderOrigin.position, lineCastEndPos, layerMask);
 	}
 
 	public void AttackPlayer()

@@ -24,6 +24,8 @@ public class SlimeBlueNPCScript : SimpleNPCBase
 		base.FixedUpdate();
 
 		if (isGrounded && canMove)
-			rigid.velocity = new Vector2(mDirection.x * speed, rigid.velocity.y);
+			rigid.velocity = transform.right * mDirection.x * speed;
+
+
 	}
 }

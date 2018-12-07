@@ -6,7 +6,7 @@ public class WalkSMB : DefaultBaseFSM {
 
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if (!MonoScriptRef.isGrounded)
+		if (!MonoScriptRef.isGrounded || MonoScriptRef.isObstructed)
 		{
 			MonoScriptRef.canMove = false;
 			animator.SetBool(DefaultAnimParameters.Walk, false);
