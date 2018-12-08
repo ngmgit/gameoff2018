@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCMono: {fileID: 0}
-  TestMonoScriptRef: {fileID: 0}
+  MonoScriptRef: {fileID: 0}
 --- !u!114 &114449181771010878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCMono: {fileID: 0}
-  TestMonoScriptRef: {fileID: 0}
+  MonoScriptRef: {fileID: 0}
 --- !u!114 &114590250055681678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCMono: {fileID: 0}
-  TestMonoScriptRef: {fileID: 0}
+  MonoScriptRef: {fileID: 0}
 --- !u!114 &114904353300011048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCMono: {fileID: 0}
-  TestMonoScriptRef: {fileID: 0}
+  MonoScriptRef: {fileID: 0}
 --- !u!1101 &1101021849507574350
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

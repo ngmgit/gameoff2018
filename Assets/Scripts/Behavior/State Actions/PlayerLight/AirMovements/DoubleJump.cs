@@ -11,13 +11,21 @@ namespace SA
 
         public override void Execute(StateManager states)
         {
-            if (!states.playerLight.wallDetected && states.inputs.isJumpHold && states.playerLight.canDoubleJump)
+            if (CanJump(states))
             {
                 states.rigid.velocity = new Vector2(states.rigid.velocity.x, jumpForce);
                 states.playerLight.canDoubleJump = false;
                 states.playerLight.canSwitchtoDoubleJumpState = true;
             }
             states.anim.SetTrigger(DefaultAnimParameters.DoubleJump);
+        }
+
+        private bool CanJump(StateManager states)
+        {
+            if (!states.playerLight.wallDetected && states.inputs.isJumpHold && states.playerLight.canDoubleJump)
+                return true;
+
+            return false;
         }
     }
 }
