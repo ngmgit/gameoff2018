@@ -22,6 +22,9 @@ namespace SA
 
         private bool CanJump(StateManager states)
         {
+            if (states.playerLight.wallJumpConfig.canJump)
+                return false;
+
             if (!states.playerLight.wallDetected && states.inputs.isJumpHold && states.playerLight.canDoubleJump)
                 return true;
 

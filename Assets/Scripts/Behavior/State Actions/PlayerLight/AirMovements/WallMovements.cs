@@ -29,6 +29,7 @@ namespace SA
 						states.mTransform.localScale.y,
 						states.mTransform.localScale.z);
 					states.playerLight.canSwitchtoDoubleJumpState = true;
+					states.playerLight.wallJumpConfig.canJump = true;
 				}
 			}
         }

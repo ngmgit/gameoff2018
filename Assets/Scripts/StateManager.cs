@@ -16,6 +16,14 @@ namespace SA
     [System.Serializable]
     public struct PlayerLightState
     {
+        [System.Serializable]
+        public class WallJumpConfig
+        {
+            public bool canJump;
+            public float delay;
+            public Vector2 direction;
+        }
+
         [HideInInspector]
         public BoxCollider2D boxCollider;
         public bool canDoubleJump;
@@ -23,6 +31,7 @@ namespace SA
         public bool wallDetected;
         public bool isLedgeDetected;
         public bool isCrouchWallDetected;
+        public WallJumpConfig wallJumpConfig;
 
         [Header("Ray Positions")]
 		public Transform topRayPosition;

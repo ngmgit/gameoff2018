@@ -15,7 +15,7 @@ namespace SA
 			if (states.playerLight.isLedgeDetected && states.movementValues.vertical >= 0)
 				return;
 
-			if (!states.inputs.isJumpHold)
+			if (!states.inputs.isJumpHold && states.playerLight.wallDetected)
 			{
 				if (states.movementValues.vertical < 0)
 				{
