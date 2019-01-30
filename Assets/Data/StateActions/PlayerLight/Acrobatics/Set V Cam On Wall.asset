@@ -8,8 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed7105f290f6e9147bd833dd785fbdf9, type: 3}
-  m_Name: On Enter In Air State Light
+  m_Script: {fileID: 11500000, guid: 349b44e3e4dd70345bf9ba1f705c18e3, type: 3}
+  m_Name: Set V Cam On Wall
   m_EditorClassIdentifier: 
-  lookAheadTime: 2.5
+  lookAheadTime: 0.25
   lookAheadSmoothness: 7

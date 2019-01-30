@@ -11,3 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd31b2e3f496a9e4c8bd75c83a18639d, type: 3}
   m_Name: On Exit In Air State Light
   m_EditorClassIdentifier: 
+  lookAheadTime: 0
+  lookAheadSmoothness: 10

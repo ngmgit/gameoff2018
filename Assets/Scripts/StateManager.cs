@@ -78,6 +78,10 @@ namespace SA
             public bool isDashHold;
         }
 
+
+		public Cinemachine.CinemachineVirtualCamera vCamGround;
+        public Cinemachine.CinemachineVirtualCamera vCamAir;
+
         [HideInInspector]
         public AudioSource currentAudio;
 

@@ -2,19 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LedgeGrab : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
-}
-
 namespace SA
 {
     [CreateAssetMenu(menuName = "Actions/State Actions/Light Player/Ledge Grab")]
