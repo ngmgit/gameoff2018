@@ -9,6 +9,7 @@ namespace SA
     {
 		public float idleSlideSpeed;
 		public float activeSlideSpeed;
+		public float fallSpeed;
 
         public override void Execute(StateManager states)
         {
@@ -17,14 +18,20 @@ namespace SA
 
 			if (!states.inputs.isJumpHold && states.playerLight.wallDetected)
 			{
+				states.rigid.AddForce(-Physics2D.gravity);
+
+				// pressing down movement
 				if (states.movementValues.vertical < 0)
 				{
 					states.rigid.velocity = new Vector2(0, activeSlideSpeed);
-				}
+				} // Pressing towards the wall
+				else if (!states.isFacingOppToWall() && Mathf.Abs(states.movementValues.horizontal) > 0.1f)
+				{
+					states.rigid.velocity = new Vector2(0, idleSlideSpeed);
+				} // Free fall
 				else
 				{
-					if (!states.isFacingOppToWall() && Mathf.Abs(states.movementValues.horizontal) > 0.1f)
-						states.rigid.velocity = new Vector2(0, idleSlideSpeed);
+					states.rigid.velocity = new Vector2(0, fallSpeed);
 				}
 			}
         }

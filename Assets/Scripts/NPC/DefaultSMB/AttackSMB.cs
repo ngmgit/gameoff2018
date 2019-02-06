@@ -12,7 +12,6 @@ public class AttackSMB : DefaultBaseFSM
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if (MonoScriptRef.CheckIfHasToTurn())
-			MonoScriptRef.ChangeDirection();
+		MonoScriptRef.TurnTowardPlayer();
 	}
 }

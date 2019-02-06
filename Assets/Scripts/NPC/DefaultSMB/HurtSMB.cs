@@ -7,8 +7,7 @@ public class HurtSMB : DefaultBaseFSM {
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		MonoScriptRef.HaltNPC();
-		if (MonoScriptRef.CheckIfHasToTurn())
-			MonoScriptRef.ChangeDirection();
+		MonoScriptRef.TurnTowardPlayer();
 	}
 
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

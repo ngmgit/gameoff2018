@@ -19,13 +19,13 @@ public class IdleSMB : DefaultBaseFSM
 			MonoScriptRef.RunIdleCR();
 		}
 
-		if (!MonoScriptRef.canAttack && !MonoScriptRef.isGrounded)
+		if (!MonoScriptRef.canAttack && !MonoScriptRef.isGrounded && !MonoScriptRef.isInAir)
 			MonoScriptRef.ChangeDirection();
 
 		if (MonoScriptRef.canMove && MonoScriptRef.isGrounded)
 			animator.SetBool(DefaultAnimParameters.Walk, true);
 
-		if (MonoScriptRef.canAttack)
+		if (MonoScriptRef.canAttack && MonoScriptRef.isGrounded)
 			animator.SetTrigger(DefaultAnimParameters.Attack);
 	}
 

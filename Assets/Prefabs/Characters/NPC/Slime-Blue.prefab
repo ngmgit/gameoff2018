@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPosition: {fileID: 0}
-  PlayerTransform: {fileID: 0}
+  PlayerTransform: {fileID: 11400000, guid: 6789e0b75455a2947a335aecf4682827, type: 2}
   speed: 3
   idleDelayTime: 1
   isDead: 0

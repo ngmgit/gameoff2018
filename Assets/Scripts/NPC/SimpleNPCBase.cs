@@ -20,6 +20,7 @@ public class SimpleNPCBase : MonoBehaviour
 	[HideInInspector]
 	public bool canMove;
 	public bool isGrounded;
+	public bool isInAir;
 	public bool isPlayerDetected;
 	public bool isObstructed;
 	[HideInInspector]
@@ -34,6 +35,7 @@ public class SimpleNPCBase : MonoBehaviour
 	public LayerMask layerMask;
 	[Tooltip("To set the origin for Ground ray")]
 	public Transform groundColliderOrigin;
+	public Transform airCheckOrigin;
 	public float groundColliderLength;
 	public float obstacleColliderLength;
 
@@ -65,10 +67,20 @@ public class SimpleNPCBase : MonoBehaviour
 		}
 
 		Vector2 lineCastEndPos = groundColliderOrigin.position + (transform.up * -1 * groundColliderLength);
-
 		Debug.DrawLine(groundColliderOrigin.position, lineCastEndPos);
-
 		isGrounded = Physics2D.Linecast(groundColliderOrigin.position, lineCastEndPos, layerMask);
+
+
+		if (!airCheckOrigin)
+		{
+			return;
+		}
+
+		lineCastEndPos = airCheckOrigin.position + (transform.up * -1 * groundColliderLength);
+		Debug.DrawLine(airCheckOrigin.position, lineCastEndPos);
+
+		isInAir = !Physics2D.Linecast(airCheckOrigin.position, lineCastEndPos, layerMask);
+		isGrounded = isGrounded && !isInAir;
 	}
 
 	private void SetObstacleStatus()
@@ -136,5 +148,11 @@ public class SimpleNPCBase : MonoBehaviour
 	{
 		 yield return new WaitForSeconds(idleDelayTime);
 		 canMove = true;
+	}
+
+	public void TurnTowardPlayer()
+	{
+		if (CheckIfHasToTurn())
+			ChangeDirection();
 	}
 }

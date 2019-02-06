@@ -26,6 +26,31 @@ public class SlimeBlueNPCScript : SimpleNPCBase
 		if (isGrounded && canMove)
 			rigid.velocity = transform.right * mDirection.x * speed;
 
+	}
 
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		switch(other.gameObject.tag)
+		{
+			case "Player":
+				{
+					canAttack = true;
+					isPlayerDetected = true;
+				}
+				break;
+
+			case "PlayerWeapon":
+				{
+					isHurt = true;
+					anim.SetTrigger(DefaultAnimParameters.Hurt);
+				}
+				break;
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Player")
+			canAttack = false;
 	}
 }

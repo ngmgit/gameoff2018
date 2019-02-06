@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 96802681613192002}
   m_Layer: 9
   m_Name: PlayerController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1402603167114514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 253.6, y: 79.2, z: -0.029593892}
+  m_LocalPosition: {x: 220.17, y: 35.44, z: -0.029593892}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children:
   - {fileID: 4475354951672250}
@@ -385,7 +385,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 32960
+      atime1: 1928
       atime2: 0
       atime3: 0
       atime4: 0
@@ -508,6 +508,8 @@ MonoBehaviour:
     isVanish: 0
     isDash: 0
     isDashHold: 0
+  vCamGround: {fileID: 0}
+  vCamAir: {fileID: 0}
   currentAudio: {fileID: 0}
   initActionsBatch: {fileID: 0}
   currentState: {fileID: 11400000, guid: a0d6625c00cd1c441aeae360a3adc1b6, type: 2}

@@ -16,8 +16,7 @@ public class WalkSMB : DefaultBaseFSM {
 
 		if (MonoScriptRef.isPlayerDetected)
 		{
-			if (MonoScriptRef.CheckIfHasToTurn())
-				MonoScriptRef.ChangeDirection();
+			MonoScriptRef.TurnTowardPlayer();
 		}
 
 		if (MonoScriptRef.canAttack)
