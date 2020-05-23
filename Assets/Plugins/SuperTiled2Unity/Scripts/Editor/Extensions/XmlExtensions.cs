@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -41,33 +39,7 @@ namespace SuperTiled2Unity.Editor
             }
 
             string htmlColor = element.GetAttributeAs<string>(name);
-
-            // Sometimes Tiled saves out color without the leading # but we expect it to be there
-            if (!htmlColor.StartsWith("#"))
-            {
-                htmlColor = "#" + htmlColor;
-            }
-
-            if (htmlColor.Length == 9)
-            {
-                // ARBG
-                byte a = byte.Parse(htmlColor.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
-                byte r = byte.Parse(htmlColor.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-                byte g = byte.Parse(htmlColor.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
-                byte b = byte.Parse(htmlColor.Substring(7, 2), System.Globalization.NumberStyles.HexNumber);
-                return new Color32(r, g, b, a);
-            }
-            else if (htmlColor.Length == 7)
-            {
-                // RBA
-                byte r = byte.Parse(htmlColor.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
-                byte g = byte.Parse(htmlColor.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-                byte b = byte.Parse(htmlColor.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
-                return new Color32(r, g, b, 255);
-            }
-
-            // If we're here then we've got a bad color format. Just return an ugly color.
-            return Color.magenta;
+            return htmlColor.ToColor();
         }
 
         public static T GetAttributeAs<T>(this XElement element, string name, T defaultValue) where T : IConvertible
@@ -88,7 +60,7 @@ namespace SuperTiled2Unity.Editor
             // Special case for enum
             if (typeof(T).IsEnum)
             {
-                return GetStringAsEnum<T>(value, defaultValue);
+                return value.ToEnum<T>();
             }
 
             // Special case for bool
@@ -112,22 +84,21 @@ namespace SuperTiled2Unity.Editor
             return element.GetAttributeAs<T>(name, default(T));
         }
 
-        // Helper method for enums
-        private static T GetStringAsEnum<T>(string enumStringValue, T defaultValue)
+        public static T GetPropertyAttributeAs<T>(this XElement element, string name, T defaultValue) where T : IConvertible
         {
-            var enumString = enumStringValue.Replace("-", "_");
-
-            T value = defaultValue;
-            try
+            var xProperties = element.Element("properties");
+            if (xProperties != null)
             {
-                value = (T)Enum.Parse(typeof(T), enumString, true);
-            }
-            catch
-            {
-                Debug.LogErrorFormat("Could not convert string '{0}' to enum type '{1}'. Using default value '{2}'", enumStringValue, typeof(T).Name, defaultValue);
+                foreach (var xProperty in xProperties.Elements("property"))
+                {
+                    if (string.Equals(xProperty.GetAttributeAs<string>("name"), name, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return xProperty.GetAttributeAs<T>("value", defaultValue);
+                    }
+                }
             }
 
-            return value;
+            return defaultValue;
         }
 
         // Helper method to combine two elements
@@ -172,7 +143,7 @@ namespace SuperTiled2Unity.Editor
             // Collect the properties on the source, overriding by named key
             foreach (var prop in xObject.Descendants("property"))
             {
-                properties.Add(prop.GetAttributeAs<string>("name"), prop);
+                properties[prop.GetAttributeAs<string>("name")] = prop;
             }
 
             // Put the combined properties into the object

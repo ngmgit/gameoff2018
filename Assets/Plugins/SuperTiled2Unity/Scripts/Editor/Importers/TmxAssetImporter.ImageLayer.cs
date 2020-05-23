@@ -10,7 +10,7 @@ namespace SuperTiled2Unity.Editor
 {
     partial class TmxAssetImporter
     {
-        private GameObject ProcessImageLayer(GameObject goParent, XElement xLayer)
+        private SuperLayer ProcessImageLayer(GameObject goParent, XElement xLayer)
         {
             Assert.IsNotNull(xLayer);
             Assert.IsNotNull(goParent);
@@ -18,9 +18,8 @@ namespace SuperTiled2Unity.Editor
             // Create the game object that contains the layer and add it to the grid parent
             var layerComponent = goParent.AddSuperLayerGameObject<SuperImageLayer>(new SuperImageLayerLoader(xLayer), SuperImportContext);
             var goLayer = layerComponent.gameObject;
-            AddSuperCustomProperties(goLayer, xLayer.Element("properties"));
 
-            m_LayerSorterHelper.SortNewLayer(layerComponent);
+            AddSuperCustomProperties(goLayer, xLayer.Element("properties"));
 
             var xImage = xLayer.Element("image");
             if (xImage != null)
@@ -45,7 +44,8 @@ namespace SuperTiled2Unity.Editor
                         var renderer = goLayer.AddComponent<SpriteRenderer>();
                         renderer.sprite = sprite;
                         renderer.color = new Color(1, 1, 1, layerComponent.CalculateOpacity());
-                        AssignSortingLayer(renderer, layerComponent.m_SortingLayerName, layerComponent.m_SortingOrder);
+                        AssignMaterial(renderer, layerComponent.m_TiledName);
+                        AssignSpriteSorting(renderer);
                     }
                     catch (Exception e)
                     {
@@ -54,7 +54,7 @@ namespace SuperTiled2Unity.Editor
                 }
             }
 
-            return goLayer;
+            return layerComponent;
         }
     }
 }

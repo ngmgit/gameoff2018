@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace SuperTiled2Unity.Editor
 {
@@ -31,7 +28,16 @@ namespace SuperTiled2Unity.Editor
         public Vector2 m_TileOffset;
 
         [ReadOnly]
+        public GridOrientation m_GridOrientation;
+
+        [ReadOnly]
+        public Vector2 m_GridSize;
+
+        [ReadOnly]
         public bool m_IsInternal;
+
+        [ReadOnly]
+        public float m_PixelsPerUnit;
 
         [ReadOnly]
         public bool m_IsImageCollection;
@@ -40,6 +46,9 @@ namespace SuperTiled2Unity.Editor
 
         [ReadOnly]
         public List<SuperTile> m_Tiles = new List<SuperTile>();
+
+        [ReadOnly]
+        public bool m_HasErrors;
 
         public bool TryGetTile(int tileId, out SuperTile tile)
         {

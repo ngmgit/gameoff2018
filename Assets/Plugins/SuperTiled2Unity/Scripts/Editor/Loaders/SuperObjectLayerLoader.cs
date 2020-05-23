@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Xml.Linq;
 using SuperTiled2Unity.Editor.Geometry;
 using UnityEngine;
@@ -22,6 +19,7 @@ namespace SuperTiled2Unity.Editor
         public TiledAssetImporter Importer { get; set; }
         public ColliderFactory ColliderFactory { get; set; }
         public GlobalTileDatabase GlobalTileDatabase { get; set; }
+        public SuperMap SuperMap { get; set; }
 
         public float AnimationFramerate
         {
@@ -36,15 +34,24 @@ namespace SuperTiled2Unity.Editor
             Assert.IsNotNull(Importer);
             Assert.IsNotNull(ColliderFactory);
 
-            foreach (var xObject in m_Xml.Elements("object"))
+            var xObjects = m_Xml.Elements("object");
+            var drawOrder = m_Xml.GetAttributeAs<DrawOrder>("draworder", DrawOrder.TopDown);
+
+            if (drawOrder == DrawOrder.TopDown)
+            {
+                // xObjects need to be ordered by y-value
+                xObjects = xObjects.OrderBy(x => x.GetAttributeAs<float>("y", 0.0f));
+            }
+
+            foreach (var xObj in xObjects)
             {
                 // Ignore invisible objects
-                if (!xObject.GetAttributeAs<bool>("visible", true))
+                if (!xObj.GetAttributeAs<bool>("visible", true))
                 {
                     continue;
                 }
 
-                CreateObject(xObject);
+                CreateObject(xObj);
             }
         }
 
@@ -62,7 +69,7 @@ namespace SuperTiled2Unity.Editor
         private void CreateObject(XElement xObject)
         {
             // Templates may add extra data
-            ApplyTemplate(xObject);
+            Importer.ApplyTemplateToObject(xObject);
 
             // Create the super object and fill it out
             var superObject = CreateSuperObject(xObject);
@@ -70,23 +77,9 @@ namespace SuperTiled2Unity.Editor
 
             // Take care of properties
             Importer.AddSuperCustomProperties(superObject.gameObject, xObject.Element("properties"), superObject.m_SuperTile, superObject.m_Type);
-        }
 
-        private void ApplyTemplate(XElement xObject)
-        {
-            var template = xObject.GetAttributeAs("template", "");
-            if (!string.IsNullOrEmpty(template))
-            {
-                var asset = Importer.RequestAssetAtPath<ObjectTemplate>(template);
-                if (asset != null)
-                {
-                    xObject.CombineWithTemplate(asset.m_ObjectXml);
-                }
-                else
-                {
-                    Importer.ReportError("Missing template file: {0}", template);
-                }
-            }
+            // Post processing after custom properties have been set
+            PostProcessObject(superObject.gameObject);
         }
 
         private SuperObject CreateSuperObject(XElement xObject)
@@ -142,19 +135,21 @@ namespace SuperTiled2Unity.Editor
             var xPoint = xObject.Element("point");
             var xText = xObject.Element("text");
 
+            bool collisions = Importer.SuperImportContext.LayerIgnoreMode != LayerIgnoreMode.Collision;
+
             if (superObject.m_TileId != 0)
             {
                 ProcessTileObject(superObject, xObject);
             }
-            else if (xPolygon != null)
+            else if (xPolygon != null && collisions)
             {
                 ProcessPolygonElement(superObject.gameObject, xPolygon);
             }
-            else if (xPolyline != null)
+            else if (xPolyline != null && collisions)
             {
                 ProcessPolylineElement(superObject.gameObject, xPolyline);
             }
-            else if (xEllipse != null)
+            else if (xEllipse != null && collisions)
             {
                 ProcessEllipseElement(superObject.gameObject, xObject);
             }
@@ -167,7 +162,7 @@ namespace SuperTiled2Unity.Editor
                 // A point is simply an empty game object out in space.
                 // We don't need to add anything else
             }
-            else
+            else if (collisions)
             {
                 // Default object is a rectangle
                 ProcessObjectRectangle(superObject.gameObject, xObject);
@@ -209,7 +204,7 @@ namespace SuperTiled2Unity.Editor
 
                 if (tile == null)
                 {
-                    Importer.ReportError("Missing tile '{0}' from on tile object '{1}'", justTileId, template, superObject.name);
+                    Importer.ReportError("Missing tile '{0}' on tile object '{1}'", justTileId, template, superObject.name);
                     return;
                 }
             }
@@ -225,7 +220,7 @@ namespace SuperTiled2Unity.Editor
             bool flip_h = tileId.HasHorizontalFlip;
             bool flip_v = tileId.HasVerticalFlip;
 
-            var scale = Vector2.one;
+            var scale = Vector3.one;
             scale.x = xObject.GetAttributeAs("width", 1.0f);
             scale.y = xObject.GetAttributeAs("height", 1.0f);
 
@@ -235,7 +230,7 @@ namespace SuperTiled2Unity.Editor
             var tileOffset = new Vector3(tile.m_TileOffsetX * inversePPU, -tile.m_TileOffsetY * inversePPU);
             var translateCenter = new Vector3(tile.m_Width * 0.5f * inversePPU, tile.m_Height * 0.5f * inversePPU);
 
-            // Our root object with contain the translation, rotation, and scale of the tile object
+            // Our root object will contain the translation, rotation, and scale of the tile object
             var goTRS = superObject.gameObject;
             goTRS.transform.localScale = scale;
 
@@ -246,34 +241,49 @@ namespace SuperTiled2Unity.Editor
             goCF.name = string.Format("{0} (CF)", superObject.m_TiledName);
             goTRS.AddChildWithUniqueName(goCF);
 
-            var toCenter = translateCenter + tileOffset;
-            goCF.transform.localPosition = toCenter;
+            goCF.transform.localPosition = translateCenter + tileOffset;
             goCF.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            goCF.transform.localScale = new Vector3(flip_h ? -1 : 1, flip_v ? -1 : 1);
+            goCF.transform.localScale = new Vector3(flip_h ? -1 : 1, flip_v ? -1 : 1, 1);
+
+            // Note: We may not want to put the tile "back into place" depending on our coordinate system
+            var fromCenter = -translateCenter;
+
+            // Isometric maps referece tile objects by bottom center
+            if (SuperMap.m_Orientation == MapOrientation.Isometric)
+            {
+                fromCenter.x -= Importer.SuperImportContext.MakeScalar(tile.m_Width * 0.5f);
+            }
 
             // Add another child, putting our coordinates back into the proper place
             var goTile = new GameObject(superObject.m_TiledName);
             goCF.AddChildWithUniqueName(goTile);
-            goTile.transform.localPosition = -toCenter;
+            goTile.transform.localPosition = fromCenter;
             goTile.transform.localRotation = Quaternion.Euler(0, 0, 0);
             goTile.transform.localScale = Vector3.one;
 
-            // Add the renderer
-            var renderer = goTile.AddComponent<SpriteRenderer>();
-            renderer.sprite = tile.m_Sprite;
-            renderer.color = new Color(1, 1, 1, superObject.CalculateOpacity());
-            Importer.AssignSortingLayer(renderer, m_ObjectLayer.m_SortingLayerName, (int)superObject.m_Y);
-
-            // Add the animator if needed
-            if (!tile.m_AnimationSprites.IsEmpty())
+            if (Importer.SuperImportContext.LayerIgnoreMode != LayerIgnoreMode.Visual)
             {
-                var tileAnimator = goTile.AddComponent<TileObjectAnimator>();
-                tileAnimator.m_AnimationFramerate = AnimationFramerate;
-                tileAnimator.m_AnimationSprites = tile.m_AnimationSprites;
+                // Add the renderer
+                var renderer = goTile.AddComponent<SpriteRenderer>();
+                renderer.sprite = tile.m_Sprite;
+                renderer.color = new Color(1, 1, 1, superObject.CalculateOpacity());
+                Importer.AssignMaterial(renderer, m_ObjectLayer.m_TiledName);
+                Importer.AssignSpriteSorting(renderer);
+
+                // Add the animator if needed
+                if (!tile.m_AnimationSprites.IsEmpty())
+                {
+                    var tileAnimator = goTile.AddComponent<TileObjectAnimator>();
+                    tileAnimator.m_AnimationFramerate = AnimationFramerate;
+                    tileAnimator.m_AnimationSprites = tile.m_AnimationSprites;
+                }
             }
 
-            // Add any colliders that were set up on the tile in the collision editor
-            tile.AddCollidersForTileObject(goTile, Importer.SuperImportContext);
+            if (Importer.SuperImportContext.LayerIgnoreMode != LayerIgnoreMode.Collision)
+            {
+                // Add any colliders that were set up on the tile in the collision editor
+                tile.AddCollidersForTileObject(goTile, Importer.SuperImportContext);
+            }
 
             // Store a reference to our tile object
             superObject.m_SuperTile = tile;
@@ -294,7 +304,7 @@ namespace SuperTiled2Unity.Editor
             var composition = new ComposeConvexPolygons();
             var convexPolygons = composition.Compose(triangles);
 
-            PolygonUtils.AddCompositePolygonCollider(goObject, convexPolygons);
+            PolygonUtils.AddCompositePolygonCollider(goObject, convexPolygons, Importer.SuperImportContext);
         }
 
         private void ProcessPolylineElement(GameObject goObject, XElement xPolyline)
@@ -318,6 +328,25 @@ namespace SuperTiled2Unity.Editor
             var height = xObject.GetAttributeAs("height", 0f);
             ColliderFactory.MakeBox(goObject, width, height);
             goObject.AddComponent<SuperColliderComponent>();
+        }
+
+        private void PostProcessObject(GameObject go)
+        {
+            var properties = go.GetComponent<SuperCustomProperties>();
+            var collider = go.GetComponent<Collider2D>();
+
+            if (collider != null)
+            {
+                CustomProperty isTrigger;
+                if (properties.TryGetCustomProperty(StringConstants.Unity_IsTrigger, out isTrigger))
+                {
+                    collider.isTrigger = Importer.SuperImportContext.GetIsTriggerOverridable(isTrigger.GetValueAsBool());
+                }
+            }
+
+            // Make sure all children have the same physics layer
+            // This is needed for Tile objects in particular that have their colliders in child objects
+            go.AssignChildLayers();
         }
     }
 }

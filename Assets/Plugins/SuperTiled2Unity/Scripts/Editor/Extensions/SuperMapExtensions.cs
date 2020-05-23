@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEngine;
 
 namespace SuperTiled2Unity.Editor
 {
     public static class SuperMapExtensions
     {
-        public static void UpdateProperties(this SuperMap superMap, SuperImportContext importContext)
+        public static Vector2 CellPositionToLocalPosition(this SuperMap superMap, int cx, int cy, SuperImportContext context)
         {
-            var cellSize = superMap.CalculateCellSize();
-
-            // The cell size has to take pixels per unit into account
-            superMap.CellSize = importContext.MakeSize(cellSize);
+            var grid = superMap.GetComponentInChildren<Grid>();
+            var local = grid.CellToLocal(new Vector3Int(cx, cy, 0));
+            return local;
         }
     }
 }

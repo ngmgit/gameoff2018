@@ -16,14 +16,16 @@ namespace SuperTiled2Unity.Editor
         private SerializedProperty m_TilesAsObjects;
         private readonly GUIContent m_TilesAsObjectsContent = new GUIContent("Tiles as Objects", "Place each tile as separate game object. Uses more resources but gives you more control. This is ignored for Isometric maps that are forced to use game objects.");
 
-        private SerializedProperty m_ImportSorting;
-        private readonly GUIContent m_ImportSortingContent = new GUIContent("Layer/Object Sorting", "Choose the sorting order scheme applied to imported layers and objects.");
+        private SerializedProperty m_SortingMode;
+        private readonly GUIContent m_SortingModeContent = new GUIContent("Layer/Object Sorting", "Choose the sorting order scheme applied to imported layers and objects.");
 
         private SerializedProperty m_CustomImporterClassName;
 
         private string[] m_CustomImporterNames;
         private string[] m_CustomImporterTypes;
         private int m_SelectedCustomImporter;
+
+        private bool m_ShowAutoImporters;
 
         protected override string EditorLabel
         {
@@ -47,24 +49,20 @@ namespace SuperTiled2Unity.Editor
             EditorGUILayout.LabelField("Tiled Map Importer Settings", EditorStyles.boldLabel);
             ShowTiledAssetGui();
 
-            EditorGUI.BeginDisabledGroup(TargetAssetImporter.IsIsometric);
             EditorGUILayout.PropertyField(m_TilesAsObjects, m_TilesAsObjectsContent);
             EditorGUI.EndDisabledGroup();
 
-            if (TargetAssetImporter.IsIsometric)
-            {
-                using (new GuiScopedIndent())
-                {
-                    EditorGUILayout.HelpBox("Note: Isometric maps are forced to display tiles as objects.", MessageType.None);
-                }
-            }
+            m_SortingMode.intValue = (int)(SortingMode)EditorGUILayout.EnumPopup(m_SortingModeContent, (SortingMode)m_SortingMode.intValue);
 
-            m_ImportSorting.intValue = (int)(ImportSorting)EditorGUILayout.EnumPopup(m_ImportSortingContent, (ImportSorting)m_ImportSorting.intValue);
+            if (m_SortingMode.intValue == (int)SortingMode.CustomSortAxis)
+            {
+                EditorGUILayout.HelpBox("Tip: Custom Sort Axis may require you to set a Transparency Sort Axis for cameras in your project Graphics settings.", MessageType.Info);
+            }
 
             EditorGUILayout.Space();
             ShowCustomImporterGui();
 
-            ApplyRevertGUI();
+            InternalApplyRevertGUI();
         }
 
         protected override void ResetValues()
@@ -78,8 +76,8 @@ namespace SuperTiled2Unity.Editor
             m_TilesAsObjects = serializedObject.FindProperty("m_TilesAsObjects");
             Assert.IsNotNull(m_TilesAsObjects);
 
-            m_ImportSorting = serializedObject.FindProperty("m_ImportSorting");
-            Assert.IsNotNull(m_ImportSorting);
+            m_SortingMode = serializedObject.FindProperty("m_SortingMode");
+            Assert.IsNotNull(m_SortingMode);
 
             m_CustomImporterClassName = serializedObject.FindProperty("m_CustomImporterClassName");
             Assert.IsNotNull(m_CustomImporterClassName);
@@ -90,8 +88,11 @@ namespace SuperTiled2Unity.Editor
             var importerNames = new List<string>();
             var importerTypes = new List<string>();
 
-            var baseType = typeof(CustomTmxImporter);
-            var customTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(baseType)).OrderBy(t => t.GetDisplayName());
+            // Enumerate all CustomTmxImporter classes that *do not* have the auto importer attribute on them
+            var customTypes = AppDomain.CurrentDomain.GetAllDerivedTypes<CustomTmxImporter>().
+                Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(CustomTmxImporter))).
+                Where(t => t.GetCustomAttributes(typeof(AutoCustomTmxImporterAttribute), true).Length == 0).
+                OrderBy(t => t.GetDisplayName());
 
             foreach (var t in customTypes)
             {
@@ -115,6 +116,7 @@ namespace SuperTiled2Unity.Editor
 
         private void ShowCustomImporterGui()
         {
+            // Show the user-selected custom importer
             EditorGUILayout.LabelField("Custom Importer Settings", EditorStyles.boldLabel);
             var selected = EditorGUILayout.Popup("Custom Importer", m_SelectedCustomImporter, m_CustomImporterNames);
 
@@ -125,6 +127,26 @@ namespace SuperTiled2Unity.Editor
             }
 
             EditorGUILayout.HelpBox("Custom Importers are an advanced feature that require scripting. Create a class inherited from CustomTmxImporter and select it from the list above.", MessageType.None);
+
+            // List all the automatically applied custom importers
+            using (new GuiScopedIndent())
+            {
+                var importers = AutoCustomTmxImporterAttribute.GetOrderedAutoImportersTypes();
+                var title = string.Format("Auto Importers ({0})", importers.Count());
+                var tip = "This custom importers will be automatically applied to your import process.";
+                var content = new GUIContent(title, tip);
+
+                m_ShowAutoImporters = EditorGUILayout.Foldout(m_ShowAutoImporters, content);
+                if (m_ShowAutoImporters)
+                {
+                    foreach (var t in importers)
+                    {
+                        EditorGUILayout.LabelField(t.GetDisplayName());
+                    }
+
+                    EditorGUILayout.HelpBox("Auto Importers are custom importers that run on automatically on every exported Tiled map. Order is controlled by the AutoCustomTmxImporterAttribute.", MessageType.None);
+                }
+            }
         }
     }
 }

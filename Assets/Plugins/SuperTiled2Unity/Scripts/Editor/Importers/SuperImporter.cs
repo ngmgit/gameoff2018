@@ -14,6 +14,10 @@ namespace SuperTiled2Unity.Editor
     public abstract class SuperImporter : ScriptedImporter
     {
         [SerializeField]
+        private List<string> m_MissingFiles = new List<string>();
+        public IEnumerable<string> MissingFiles { get { return m_MissingFiles; } }
+
+        [SerializeField]
         private List<string> m_Errors = new List<string>();
         public IEnumerable<string> Errors { get { return m_Errors; } }
 
@@ -29,6 +33,19 @@ namespace SuperTiled2Unity.Editor
         private List<string> m_MissingLayers = new List<string>();
         public IEnumerable<string> MissingLayers { get { return m_MissingLayers; } }
 
+        [SerializeField]
+        private List<string> m_MissingTags = new List<string>();
+        public IEnumerable<string> MissingTags { get { return m_MissingTags; } }
+
+        // Keep track of our importer version so that we may handle converions from old imports
+        [SerializeField]
+        private int m_ImporterVersion = 0;
+        public int ImporterVersion
+        {
+            get { return m_ImporterVersion; }
+            protected set { m_ImporterVersion = value; }
+        }
+
         // Keep track of loaded database objects by type
         private Dictionary<KeyValuePair<string, Type>, UnityEngine.Object> m_CachedDatabase = new Dictionary<KeyValuePair<string, Type>, UnityEngine.Object>();
 
@@ -40,17 +57,20 @@ namespace SuperTiled2Unity.Editor
         public override sealed void OnImportAsset(AssetImportContext ctx)
         {
             m_CachedDatabase.Clear();
+            m_MissingFiles.Clear();
             m_Errors.Clear();
             m_Warnings.Clear();
             m_MissingSortingLayers.Clear();
             m_MissingLayers.Clear();
+            m_MissingTags.Clear();
             m_SuperAsset = null;
             AssetImportContext = ctx;
 
-#if UNITY_2018_2_OR_NEWER
+#if UNITY_2018_3_OR_NEWER
             try
             {
                 InternalOnImportAsset();
+                InternalOnImportAssetCompleted();
             }
             catch (TiledException tiled)
             {
@@ -77,11 +97,6 @@ namespace SuperTiled2Unity.Editor
 #endif
         }
 
-        public void AddAssetPathDependency(string assetPath)
-        {
-            m_SuperAsset.AddDependency(assetPath);
-        }
-
         public T RequestAssetAtPath<T>(string path) where T : UnityEngine.Object
         {
             Assert.IsNotNull(m_SuperAsset, "Must be a SuperAsset type if we are requesting dependencies");
@@ -96,13 +111,13 @@ namespace SuperTiled2Unity.Editor
             }
 
             // The path is either relative to our asset path or is absolute
-            using (new ChDir(this.assetPath))
+            using (new ChDir(assetPath))
             {
                 path = Path.GetFullPath(path);
                 if (AssetPath.TryAbsoluteToAsset(ref path))
                 {
                     // Keep track that the the asset is a dependency
-                    m_SuperAsset.AddDependency(path);
+                    m_SuperAsset.AddDependency(AssetImportContext, path);
 
                     // In most cases our dependency is already known by the AssetDatabase
                     T asset = AssetDatabase.LoadAssetAtPath<T>(path);
@@ -112,10 +127,19 @@ namespace SuperTiled2Unity.Editor
                         m_CachedDatabase[key] = asset;
                         return asset;
                     }
+                    else
+                    {
+                        ReportMissingFile(path);
+                    }
                 }
             }
 
             return null;
+        }
+
+        public void ReportMissingFile(string path)
+        {
+            m_MissingFiles.Add(path);
         }
 
         public void ReportError(string fmt, params object[] args)
@@ -128,6 +152,11 @@ namespace SuperTiled2Unity.Editor
         {
             string warning = string.Format(fmt, args);
             m_Warnings.Add(warning);
+        }
+
+        public string GetReportHeader()
+        {
+            return string.Format("SuperTiled2Unity version: {0}, Unity version: {1}", SuperTiled2Unity_Config.Version, Application.unityVersion);
         }
 
         public bool CheckSortingLayerName(string sortName)
@@ -162,6 +191,21 @@ namespace SuperTiled2Unity.Editor
             return true;
         }
 
+        public bool CheckTagName(string tagName)
+        {
+            if (!UnityEditorInternal.InternalEditorUtility.tags.Contains(tagName))
+            {
+                if (!m_MissingTags.Contains(tagName))
+                {
+                    m_MissingTags.Add(tagName);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+
         protected void AddSuperAsset<T>() where T : SuperAsset
         {
             m_SuperAsset = ScriptableObject.CreateInstance<T>();
@@ -170,10 +214,11 @@ namespace SuperTiled2Unity.Editor
         }
 
         protected abstract void InternalOnImportAsset();
+        protected abstract void InternalOnImportAssetCompleted();
 
         private void ReportUnityVersionError()
         {
-            string error = string.Format("SuperTiled2Unity requires Unity 2018.2 or later. You are using {0}", Application.unityVersion);
+            string error = SuperTiled2Unity_Config.GetVersionError();
             ReportError(error);
             Debug.LogError(error);
         }

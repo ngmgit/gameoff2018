@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace SuperTiled2Unity
@@ -47,11 +46,10 @@ namespace SuperTiled2Unity
             // Make the points the give us a rectangle shape
             // Note: points are counter-clockwise
             m_Points = new Vector2[4];
-            m_Points[0] = new Vector2(m_Position.x, m_Position.y);
-            m_Points[1] = new Vector2(m_Position.x, m_Position.y + m_Size.y);
-            m_Points[2] = new Vector2(m_Position.x + m_Size.x, m_Position.y + m_Size.y);
-            m_Points[3] = new Vector2(m_Position.x + m_Size.x, m_Position.y);
-            ApplyRotationToPoints();
+            m_Points[0] = Vector2.zero;
+            m_Points[1] = new Vector2(0, m_Size.y);
+            m_Points[2] = new Vector2(m_Size.x, m_Size.y);
+            m_Points[3] = new Vector2(m_Size.x, 0);
         }
 
         public void MakePointsFromEllipse(int numEdges)
@@ -67,27 +65,73 @@ namespace SuperTiled2Unity
             m_Points = new Vector2[numEdges];
             for (int i = 0; i < numEdges; i++)
             {
-                m_Points[i].x = (m_Position.x + half_x) + half_x * Mathf.Cos(theta * i);
-                m_Points[i].y = (m_Position.y + half_y) + half_y * Mathf.Sin(theta * i);
+                m_Points[i].x = half_x + half_x * Mathf.Cos(theta * i);
+                m_Points[i].y = half_y + half_y * Mathf.Sin(theta * i);
             }
-
-            ApplyRotationToPoints();
         }
 
         public void MakePointsFromPolygon(Vector2[] points)
         {
             m_CollisionShapeType = CollisionShapeType.Polygon;
             m_IsClosed = true;
-            m_Points = points.Select(pt => pt + m_Position).ToArray();
-            ApplyRotationToPoints();
+            m_Points = points;
         }
 
         public void MakePointsFromPolyline(Vector2[] points)
         {
             m_CollisionShapeType = CollisionShapeType.Polyline;
             m_IsClosed = false;
-            m_Points = points.Select(pt => pt + m_Position).ToArray();
+            m_Points = points;
+        }
+
+        // This must be called in order for rotation and position offset to by applied
+        public void RenderPoints(SuperTile tile, GridOrientation orientation, Vector2 gridSize)
+        {
+            if (orientation == GridOrientation.Isometric)
+            {
+                m_Position = IsometricTransform(m_Position, tile, gridSize);
+                m_Position.x += gridSize.x * 0.5f;
+
+                for (int i = 0; i < m_Points.Length; i++)
+                {
+                    m_Points[i] = IsometricTransform(m_Points[i], tile, gridSize);
+                }
+
+                // Also, we are forced to use polygon colliders for isometric projection
+                if (m_CollisionShapeType == CollisionShapeType.Ellipse || m_CollisionShapeType == CollisionShapeType.Rectangle)
+                {
+                    m_CollisionShapeType = CollisionShapeType.Polygon;
+                }
+            }
+
+            // Burn rotation into our points
             ApplyRotationToPoints();
+
+            // Burn translation into our points
+            m_Points = m_Points.Select(p => p + m_Position).ToArray();
+
+            // Transform all points so that they wrt the bottom-left of the tile
+            // This should make calculations later easier since Tiled treats the bottom-left corner of a tile as the local origin
+            m_Points = m_Points.Select(p => LocalTransform(p, tile)).ToArray();
+            m_Position = LocalTransform(m_Position, tile);
+        }
+
+        private Vector2 IsometricTransform(Vector2 pt, SuperTile tile,Vector2 gridSize)
+        {
+            float cx = pt.x / gridSize.y;
+            float cy = pt.y / gridSize.y;
+
+            float x = (cx - cy) * gridSize.x * 0.5f;
+            float y = (cx + cy) * gridSize.y * 0.5f;
+
+            y += (tile.m_Height - gridSize.y) * 0.5f;
+
+            return new Vector2(x, y);
+        }
+
+        private Vector2 LocalTransform(Vector2 pt, SuperTile tile)
+        {
+            return new Vector2(pt.x, tile.m_Height - pt.y);
         }
 
         private void ApplyRotationToPoints()
@@ -98,13 +142,9 @@ namespace SuperTiled2Unity
                 var cos = Mathf.Cos(rads);
                 var sin = Mathf.Sin(rads);
 
-                var transIn = Matrix4x4.Translate(-m_Position);
                 var rotate = MatrixUtils.Rotate2d(cos, -sin, sin, cos);
-                var transOut = Matrix4x4.Translate(m_Position);
 
-                var matrix = transOut * rotate * transIn;
-
-                m_Points = m_Points.Select(p => (Vector2)matrix.MultiplyPoint(p)).ToArray();
+                m_Points = m_Points.Select(p => rotate.MultiplyPoint(p)).Select(v3 => (Vector2)v3).ToArray();
             }
         }
     }

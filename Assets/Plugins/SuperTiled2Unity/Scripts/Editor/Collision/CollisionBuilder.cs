@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
-using SuperTiled2Unity;
 
 namespace SuperTiled2Unity.Editor
 {
@@ -13,7 +10,6 @@ namespace SuperTiled2Unity.Editor
     public class CollisionBuilder
     {
         private GameObject m_TilemapGameObject;
-        private Tilemap m_Tilemap;
         private Dictionary<uint, TilePolygonCollection> m_TilePolygonDatabase;
         private Dictionary<CollisionClipperKey, CollisionClipper> m_CollisionClippers = new Dictionary<CollisionClipperKey, CollisionClipper>();
         private SuperImportContext m_ImportContext;
@@ -21,31 +17,23 @@ namespace SuperTiled2Unity.Editor
         public CollisionBuilder(GameObject goTilemap, Dictionary<uint, TilePolygonCollection> tilePolygonDatabase, SuperImportContext importContext)
         {
             m_TilemapGameObject = goTilemap;
-            m_Tilemap = m_TilemapGameObject.GetComponent<Tilemap>();
             m_TilePolygonDatabase = tilePolygonDatabase;
             m_ImportContext = importContext;
         }
 
-        public void PlaceTileColliders(SuperTile tile, TileIdMath tileId, Vector3Int pos)
+        public void PlaceTileColliders(SuperMap map, SuperTile tile, TileIdMath tileId, Vector3Int pos)
         {
-            Assert.IsNotNull(m_Tilemap, "Need a Tilemap component if we are going to gather tile colliders");
-
-            // Tile y position is always off by one
-            pos.y++;
-
             // Do we have any collider objects defined for this tile?
             if (!tile.m_CollisionObjects.IsEmpty())
             {
-                var polygons = AcquireTilePolygonCollection(tile, tileId);
+                var polygons = AcquireTilePolygonCollection(tile, tileId, map.m_Orientation);
 
                 foreach (var poly in polygons.Polygons)
                 {
                     // Offset the polygon so that it is in the location of the tile
-                    var tileHeight = m_ImportContext.MakeScalar(tile.m_Height);
-                    var tileDiff = m_Tilemap.cellSize.y - tileHeight;
-                    var offset = new Vector2(pos.x * m_Tilemap.cellSize.x, pos.y * m_Tilemap.cellSize.y - tileDiff);
-                    var points = poly.Points.Select(pt => pt + offset).ToArray();
+                    var offset = map.CellPositionToLocalPosition(pos.x, pos.y, m_ImportContext);
 
+                    var points = poly.Points.Select(pt => pt + offset).ToArray();
 
                     CollisionClipperKey key = poly.MakeKey();
                     CollisionClipper clipper;
@@ -69,7 +57,7 @@ namespace SuperTiled2Unity.Editor
             }
         }
 
-        public void Build()
+        public void Build(SuperImporter importer)
         {
             // Excute our clippers and add game objects with their solution polygons
             foreach (var pair in m_CollisionClippers)
@@ -82,7 +70,12 @@ namespace SuperTiled2Unity.Editor
                 if (clipper.ClosedPaths.Any() || clipper.OpenPaths.Any())
                 {
                     var layerId = key.LayerId;
-                    
+
+                    if (!importer.CheckLayerName(key.LayerName))
+                    {
+                        layerId = 0;
+                    }
+
                     if (layerId == 0)
                     {
                         // In this context, default means inherit from tilemap layer
@@ -90,7 +83,7 @@ namespace SuperTiled2Unity.Editor
                     }
 
                     var layerName = LayerMask.LayerToName(layerId);
-                    GameObject goCollider = new GameObject("Collision_" + layerName);
+                    var goCollider = new GameObject("Collision_" + layerName);
                     goCollider.layer = layerId;
                     m_TilemapGameObject.AddChildWithUniqueName(goCollider);
 
@@ -103,7 +96,7 @@ namespace SuperTiled2Unity.Editor
                     // This way we have convex polygon paths (in the children) if needed
                     // And we can have complex polygons represented by one object
                     var composite = goCollider.AddComponent<CompositeCollider2D>();
-                    composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+                    composite.geometryType = m_ImportContext.Settings.CollisionGeometryType;
                     composite.isTrigger = key.IsTrigger;
                     composite.generationType = CompositeCollider2D.GenerationType.Manual;
 
@@ -120,6 +113,8 @@ namespace SuperTiled2Unity.Editor
                         polyCollider.gameObject.AddComponent<SuperColliderComponent>();
                     }
 
+                    composite.ST2UGeneratePolygonGeometry();
+
                     // Add Edge colliders
                     foreach (var path in clipper.OpenPaths)
                     {
@@ -131,13 +126,11 @@ namespace SuperTiled2Unity.Editor
                         edgeCollider.points = path;
                         edgeCollider.gameObject.AddComponent<SuperColliderComponent>();
                     }
-
-                    composite.GenerateGeometry();
                 }
             }
         }
 
-        private TilePolygonCollection AcquireTilePolygonCollection(SuperTile tile, TileIdMath tileId)
+        private TilePolygonCollection AcquireTilePolygonCollection(SuperTile tile, TileIdMath tileId, MapOrientation orientation)
         {
             TilePolygonCollection polygons;
             if (m_TilePolygonDatabase.TryGetValue(tileId.ImportedlTileId, out polygons))
@@ -146,7 +139,7 @@ namespace SuperTiled2Unity.Editor
             }
 
             // If we're here then we don't have a polygon collection for this tile yet
-            polygons = new TilePolygonCollection(tile, tileId, m_ImportContext);
+            polygons = new TilePolygonCollection(tile, tileId, m_ImportContext, orientation);
             m_TilePolygonDatabase.Add(tileId.ImportedlTileId, polygons);
             return polygons;
         }

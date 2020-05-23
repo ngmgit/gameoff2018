@@ -12,10 +12,10 @@ namespace SuperTiled2Unity.Editor
     public abstract class TiledAssetImporterEditor<T> : SuperImporterEditor<T> where T : SuperImporter
     {
         private SerializedProperty m_PixelsPerUnit;
-        private readonly GUIContent m_PixelsPerUnitContext = new GUIContent("Pixels Per Unit", "How many pixels in the sprite correspond to one unit in the world.");
+        private readonly GUIContent m_PixelsPerUnitContent = new GUIContent("Pixels Per Unit", "How many pixels in the sprite correspond to one unit in the world.");
 
         private SerializedProperty m_EdgesPerEllipse;
-        private readonly GUIContent m_EdgesPerEllipseContext = new GUIContent("Edges Per Ellipse", "How many edges to use when appromixating ellipse/circle colliders.");
+        private readonly GUIContent m_EdgesPerEllipseContent = new GUIContent("Edges Per Ellipse", "How many edges to use when appromixating ellipse/circle colliders.");
 
         public override void OnEnable()
         {
@@ -25,15 +25,19 @@ namespace SuperTiled2Unity.Editor
 
         protected void ShowTiledAssetGui()
         {
-            EditorGUILayout.PropertyField(m_PixelsPerUnit, m_PixelsPerUnitContext);
-            EditorGUILayout.PropertyField(m_EdgesPerEllipse, m_EdgesPerEllipseContext);
-        }
+            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.PropertyField(m_PixelsPerUnit, m_PixelsPerUnitContent);
+            if (EditorGUI.EndChangeCheck())
+            {
+                m_PixelsPerUnit.floatValue = Mathf.Clamp(m_PixelsPerUnit.floatValue, 0.01f, 2048);
+            }
 
-        protected override void Apply()
-        {
-            m_PixelsPerUnit.floatValue = Clamper.ClampPixelsPerUnit(m_PixelsPerUnit.floatValue);
-            m_EdgesPerEllipse.intValue = Clamper.ClampEdgesPerEllipse(m_EdgesPerEllipse.intValue);
-            base.Apply();
+            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.PropertyField(m_EdgesPerEllipse, m_EdgesPerEllipseContent);
+            if (EditorGUI.EndChangeCheck())
+            {
+                m_EdgesPerEllipse.intValue = Mathf.Clamp(m_EdgesPerEllipse.intValue, 6, 256);
+            }
         }
 
         protected override void ResetValues()
