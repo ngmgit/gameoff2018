@@ -11,7 +11,7 @@ namespace SA
 		private void Start()
 		{
             if (Application.isPlaying) 
-                SceneManager.LoadScene("Level", LoadSceneMode.Additive);
+                SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
 		}
 
         public override void Execute()
