@@ -7,20 +7,20 @@ namespace SA
     [CreateAssetMenu(menuName = "Actions/State Actions/Jump")]
     public class Jump : StateActions
     {
-		public float jumpForce = 0.6f;
-		public float jumpTime = 0.3f;
-		public float initJumpMultiplier = 15;
-		public AudioClip jumpAudio;
-		[Range(0,1)]
-		public float audioVolume = 1;
-		public float delayJumpTime = 0.3f;
+			public float jumpForce = 0.6f;
+			public float jumpTime = 0.3f;
+			public float initJumpMultiplier = 15;
+			public AudioClip jumpAudio;
+			[Range(0,1)]
+			public float audioVolume = 1;
+			public float delayJumpTime = 0.3f;
 
-		private bool isJumping = false;
-		private float jumpTimeCounter;
-		private float fallDelayJumpTime = 0;
+			private bool isJumping = false;
+			private float jumpTimeCounter;
+			private float fallDelayJumpTime = 0;
 
-        public override void Execute(StateManager states)
-        {
+			public override void Execute(StateManager states)
+			{
 			if (!states.isGrounded)
 			{
 				fallDelayJumpTime += Time.deltaTime;
@@ -31,7 +31,7 @@ namespace SA
 				isJumping = false;
 			}
 
-            if (states.inputs.isJumpHold && states.isGrounded && !isJumping)
+			if (states.inputs.isJumpHold && states.isGrounded && !isJumping)
 			{
 				isJumping = true;
 				jumpTimeCounter = jumpTime;
@@ -55,12 +55,13 @@ namespace SA
 			{
 				isJumping = false;
 			}
-        }
+		}
 
 		private void PlayJumpSound(StateManager states)
 		{
 			if (jumpAudio)
 			{
+				states.currentAudio.loop = false;
 				states.currentAudio.clip = jumpAudio;
 				states.PlayAudio(audioVolume);
 			}

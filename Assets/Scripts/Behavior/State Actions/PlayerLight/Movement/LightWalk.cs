@@ -28,15 +28,15 @@ namespace SA
 
             // Make sure walk sound is played only when in walk state and audio clip is also set to walk audio clip
             if (states.isGrounded && !states.inputs.isDashHold && Mathf.Abs(states.movementValues.horizontal) > 0) {
+                states.currentAudio.loop = true;
                 states.currentAudio.clip = walkAudio;
                 states.currentAudio.volume = Mathf.Abs(states.movementValues.horizontal);
                 states.currentAudio.pitch = 1 + (Mathf.Abs(states.movementValues.horizontal) * 0.5f);
-                if (!states.currentAudio.isPlaying) 
+                if (!states.currentAudio.isPlaying)
                     states.currentAudio.Play();
             } else if (states.currentAudio.clip && states.currentAudio.clip.name.Equals(walkAudio.name)) {
                 states.currentAudio.Stop();
-            }
-            
+            }   
 		}
 	}
 }

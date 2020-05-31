@@ -8,12 +8,19 @@ namespace SA
 	public class LightSlide : StateActions
 	{
 		public float slideSpeed;
+		public AudioClip slideAudio;
 		public override void Execute(StateManager states)
 		{
 			if (slideSpeed > 0 && states.inputs.isDashHold)
 				states.movementValues.dashSpeedMultiplier = slideSpeed;
 			else
 				states.movementValues.dashSpeedMultiplier = 1;
+
+			if (states.inputs.isDashHold && states.isGrounded && !states.currentAudio.isPlaying) {
+				states.currentAudio.loop = false;
+				states.currentAudio.clip= slideAudio;
+				states.PlayAudio();	
+			}
 		}
 	}
 }
