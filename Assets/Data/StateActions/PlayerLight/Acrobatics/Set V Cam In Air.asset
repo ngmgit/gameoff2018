@@ -4,12 +4,13 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6930244649dceea44953e9474d12a272, type: 3}
   m_Name: Set V Cam In Air
   m_EditorClassIdentifier: 
-  lookAheadTime: 0
+  lookAheadTime: 0.25
   lookAheadSmoothness: 10

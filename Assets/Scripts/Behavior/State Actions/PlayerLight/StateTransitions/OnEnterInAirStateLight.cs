@@ -11,6 +11,7 @@ namespace SA
         {
             states.playerLight.canSwitchtoDoubleJumpState = false;
             states.playerLight.wallJumpConfig.direction = new Vector2(states.movementValues.moveDirection.x * -1, states.movementValues.vertical);
+            states.vCamGround.Priority = 1;
         }
     }
 }

@@ -14,9 +14,9 @@ namespace SA
 
         public override void Execute(StateManager states)
         {
-			var vCamFramingT = states.vCamAir.GetCinemachineComponent<CinemachineFramingTransposer>();
-			vCamFramingT.m_LookaheadTime = lookAheadTime;
-			vCamFramingT.m_LookaheadSmoothing = lookAheadSmoothness;
+			// var vCamFramingT = states.vCamAir.GetCinemachineComponent<CinemachineFramingTransposer>();
+			// vCamFramingT.m_LookaheadTime = lookAheadTime;
+			// vCamFramingT.m_LookaheadSmoothing = lookAheadSmoothness;
         }
     }
 }

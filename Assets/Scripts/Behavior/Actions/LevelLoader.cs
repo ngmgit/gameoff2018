@@ -8,10 +8,10 @@ namespace SA
     [CreateAssetMenu(menuName = "Actions/Loaders/Level Loader")]
     public class LevelLoader : Action
     {
-		private void Start()
+		public void Awake()
 		{
             if (Application.isPlaying) 
-                SceneManager.LoadScene("Level2", LoadSceneMode.Additive);
+                SceneManager.LoadScene("Scenes/Level2", LoadSceneMode.Additive);
 		}
 
         public override void Execute()
